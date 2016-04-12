@@ -8,6 +8,10 @@ import com.mygdx.game.monsters.Monster;
 import com.mygdx.game.character.Character;
 
 public class PlayStage extends Stage {
+    static private int counter = 0;
+    static private float previousY = 0;
+    static private float previousX = 0;
+
     private Texture bg;
     private Character player;
     private Monster monster;
@@ -16,7 +20,7 @@ public class PlayStage extends Stage {
         super(gsm);
         player = new Character(100,150);
         monster = new Monster(200, 150);
-        bg = new Texture("Mario_0.4_map.png");
+        bg = new Texture("MapSample.png");
         cam.setToOrtho(false, 800, 500);
     }
 
@@ -26,12 +30,15 @@ public class PlayStage extends Stage {
                 Gdx.input.isKeyPressed(Input.Keys.W)) {
              if (player.getY() <= 100){
                 player.jump();
+                 player.texture = player.rightJumpAnimation.get(0);
             }
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ||
                 Gdx.input.isKeyPressed(Input.Keys.D)) {
             player.goRight();
+            counter++;
+            player.texture = player.rightRunAnimation.get(counter % player.rightRunAnimation.size);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) ||
@@ -42,13 +49,23 @@ public class PlayStage extends Stage {
 
     @Override
     public void update(float deltaTime) {
+        previousY = player.getY();
+        previousX = player.getX();
         handleInput();
         cam.position.x = player.getPosition().x + 50;
         player.update(deltaTime);
+
+        if (previousY > player.getY()){
+            player.texture = new Texture("FinalCharacter\\right_jump_2.png");
+        }
+
+        if (previousX == player.getX() && previousY == player.getY()){
+            player.texture = player.rightStayAnimation.get(counter % player.rightStayAnimation.size);
+        }
+
         monster.update(deltaTime);
         cam.update();
     }
-
 
     @Override
     public void render(SpriteBatch sb) {

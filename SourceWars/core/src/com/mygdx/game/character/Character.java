@@ -2,19 +2,56 @@ package com.mygdx.game.character;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 
 public class Character {
     private static final int GRAVITY = -15;
-    private static final int MOVEMENT_SPEED = 4;
+    private static final int MOVEMENT_SPEED = 5;
 
     private Vector3 position;
     private Vector3 velocity;
-    private Texture texture;
+    public Texture texture;
+    public Array<Texture> rightRunAnimation;
+    public Array<Texture> rightJumpAnimation;
+    public Array<Texture> rightStayAnimation;
 
     public Character(int x, int y){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        texture = new Texture("marioTexture.png");
+        rightRunAnimation = new Array<Texture>();
+        for (int i = 0; i < 5; i++) {
+            rightRunAnimation.add(new Texture("FinalCharacter\\right_run_1.png"));
+        }
+        for (int i = 0; i < 5; i++) {
+            rightRunAnimation.add(new Texture("FinalCharacter\\right_run_2.png"));
+        }
+        for (int i = 0; i < 5; i++) {
+            rightRunAnimation.add(new Texture("FinalCharacter\\right_run_3.png"));
+        }
+        for (int i = 0; i < 5; i++) {
+            rightRunAnimation.add(new Texture("FinalCharacter\\right_run_4.png"));
+        }
+        for (int i = 0; i < 5; i++) {
+            rightRunAnimation.add(new Texture("FinalCharacter\\right_run_5.png"));
+        }
+
+        rightJumpAnimation = new Array<Texture>();
+        rightJumpAnimation.add(new Texture("FinalCharacter\\right_jump_1.png"));
+        rightStayAnimation = new Array<Texture>();
+        for (int i = 0; i < 5; i++) {
+            rightStayAnimation.add(new Texture("FinalCharacter\\right_stay_1.png"));
+        }
+        for (int i = 0; i < 5; i++) {
+            rightStayAnimation.add(new Texture("FinalCharacter\\right_stay_2.png"));
+        }
+        for (int i = 0; i < 5; i++) {
+            rightStayAnimation.add(new Texture("FinalCharacter\\right_stay_3.png"));
+        }
+        for (int i = 0; i < 5; i++) {
+            rightStayAnimation.add(new Texture("FinalCharacter\\right_stay_4.png"));
+        }
+
+        texture = rightStayAnimation.get(0);
     }
 
     public void update(float deltaTime){
@@ -26,8 +63,8 @@ public class Character {
         position.add(velocity.x * deltaTime, velocity.y, 0);
 
         // implement collision
-        if (position.y < 30){
-            position.y = 30;
+        if (position.y < 60){
+            position.y = 60;
         }
 
         velocity.scl(1 / deltaTime);

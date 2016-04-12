@@ -30,8 +30,8 @@ public class Monster {
 
         position.add(velocity.x * dt, velocity.y, 0);
         // implement collision
-        if (position.y < 30){
-            position.y = 30;
+        if (position.y < 60){
+            position.y = 60;
         }
 
         if (position.x <= 400 && isRightest == false){
