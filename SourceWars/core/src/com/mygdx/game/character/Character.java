@@ -8,48 +8,95 @@ public class Character {
     private static final int GRAVITY = -15;
     private static final int MOVEMENT_SPEED = 5;
 
+    public static final int GROUND_LEVEL = 60;
+
     private Vector3 position;
     private Vector3 velocity;
     public Texture texture;
     public Array<Texture> rightRunAnimation;
     public Array<Texture> rightJumpAnimation;
     public Array<Texture> rightStayAnimation;
+    public Array<Texture> leftRunAnimation;
+    public Array<Texture> leftJumpAnimation;
+    public Array<Texture> leftStayAnimation;
 
     public Character(int x, int y){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
+
+        //right run
         rightRunAnimation = new Array<Texture>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 8; i++) {
             rightRunAnimation.add(new Texture("FinalCharacter\\right_run_1.png"));
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 8; i++) {
             rightRunAnimation.add(new Texture("FinalCharacter\\right_run_2.png"));
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 8; i++) {
             rightRunAnimation.add(new Texture("FinalCharacter\\right_run_3.png"));
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 8; i++) {
             rightRunAnimation.add(new Texture("FinalCharacter\\right_run_4.png"));
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 8; i++) {
             rightRunAnimation.add(new Texture("FinalCharacter\\right_run_5.png"));
         }
+        for (int i = 0; i < 8; i++) {
+            rightRunAnimation.add(new Texture("FinalCharacter\\right_run_6.png"));
+        }
 
+        //left run
+        leftRunAnimation = new Array<Texture>();
+        for (int i = 0; i < 8; i++) {
+            leftRunAnimation.add(new Texture("FinalCharacter\\left_run_1.png"));
+        }
+        for (int i = 0; i < 8; i++) {
+            leftRunAnimation.add(new Texture("FinalCharacter\\left_run_2.png"));
+        }
+        for (int i = 0; i < 8; i++) {
+            leftRunAnimation.add(new Texture("FinalCharacter\\left_run_3.png"));
+        }
+        for (int i = 0; i < 8; i++) {
+            leftRunAnimation.add(new Texture("FinalCharacter\\left_run_4 copy.png"));
+        }
+        for (int i = 0; i < 8; i++) {
+            leftRunAnimation.add(new Texture("FinalCharacter\\left_run_5.png"));
+        }
+        for (int i = 0; i < 8; i++) {
+            leftRunAnimation.add(new Texture("FinalCharacter\\left_run_6.png"));
+        }
+
+        //right jump
         rightJumpAnimation = new Array<Texture>();
         rightJumpAnimation.add(new Texture("FinalCharacter\\right_jump_1.png"));
+
+        //left jump
+        leftJumpAnimation = new Array<Texture>();
+        leftJumpAnimation.add(new Texture("FinalCharacter\\left_jump_1.png"));
+
+        //right stay
         rightStayAnimation = new Array<Texture>();
-        for (int i = 0; i < 18; i++) {
+        for (int i = 0; i < 16; i++) {
             rightStayAnimation.add(new Texture("FinalCharacter\\right_stay_1.png"));
         }
-        for (int i = 0; i < 18; i++) {
+        for (int i = 0; i < 16; i++) {
             rightStayAnimation.add(new Texture("FinalCharacter\\right_stay_2.png"));
         }
-        for (int i = 0; i < 18; i++) {
+        for (int i = 0; i < 16; i++) {
             rightStayAnimation.add(new Texture("FinalCharacter\\right_stay_3.png"));
         }
-        //for (int i = 0; i < 18; i++) {
-        //    rightStayAnimation.add(new Texture("FinalCharacter\\right_stay_4.png"));
-        //}
+
+        //left stay
+        leftStayAnimation = new Array<Texture>();
+        for (int i = 0; i < 16; i++) {
+            leftStayAnimation.add(new Texture("FinalCharacter\\left_stay_1.png"));
+        }
+        for (int i = 0; i < 16; i++) {
+            leftStayAnimation.add(new Texture("FinalCharacter\\left_stay_2.png"));
+        }
+        for (int i = 0; i < 16; i++) {
+            leftStayAnimation.add(new Texture("FinalCharacter\\left_stay_3.png"));
+        }
 
         texture = rightStayAnimation.get(0);
     }
@@ -63,15 +110,15 @@ public class Character {
         position.add(velocity.x * deltaTime, velocity.y, 0);
 
         // implement collision
-        if (position.y < 60){
-            position.y = 60;
+        if (position.y < GROUND_LEVEL){
+            position.y = GROUND_LEVEL;
         }
 
         velocity.scl(1 / deltaTime);
     }
 
     public void jump(){
-        velocity.y = 400;
+        velocity.y = 500;
     }
 
     public void goRight(){
