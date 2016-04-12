@@ -38,16 +38,16 @@ public class Character {
         rightJumpAnimation = new Array<Texture>();
         rightJumpAnimation.add(new Texture("FinalCharacter\\right_jump_1.png"));
         rightStayAnimation = new Array<Texture>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 18; i++) {
             rightStayAnimation.add(new Texture("FinalCharacter\\right_stay_1.png"));
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 18; i++) {
             rightStayAnimation.add(new Texture("FinalCharacter\\right_stay_2.png"));
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 18; i++) {
             rightStayAnimation.add(new Texture("FinalCharacter\\right_stay_3.png"));
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 18; i++) {
             rightStayAnimation.add(new Texture("FinalCharacter\\right_stay_4.png"));
         }
 

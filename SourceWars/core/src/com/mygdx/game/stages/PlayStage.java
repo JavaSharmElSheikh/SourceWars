@@ -37,8 +37,13 @@ public class PlayStage extends Stage {
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ||
                 Gdx.input.isKeyPressed(Input.Keys.D)) {
             player.goRight();
-            counter++;
+            //counter++;
+            if (previousY < player.getY()){
+                player.texture = new Texture("FinalCharacter\\right_jump_1.png");
+            }
+            else {
             player.texture = player.rightRunAnimation.get(counter % player.rightRunAnimation.size);
+            }
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) ||
@@ -49,6 +54,7 @@ public class PlayStage extends Stage {
 
     @Override
     public void update(float deltaTime) {
+        counter++;
         previousY = player.getY();
         previousX = player.getX();
         handleInput();
@@ -62,6 +68,8 @@ public class PlayStage extends Stage {
         if (previousX == player.getX() && previousY == player.getY()){
             player.texture = player.rightStayAnimation.get(counter % player.rightStayAnimation.size);
         }
+
+
 
         monster.update(deltaTime);
         cam.update();
