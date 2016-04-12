@@ -4,13 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Game;
 
 public class MenuStage extends Stage {
     private Texture startButton;
 
     public MenuStage(GameStageManager gsm){
         super(gsm);
-        startButton = new Texture("startSprite.png");
+        startButton = new Texture("SourceWars.png");
     }
 
     @Override
@@ -28,7 +29,7 @@ public class MenuStage extends Stage {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(startButton, 275, 225);
+        sb.draw(startButton, (Game.WIDTH / 2 - startButton.getWidth() / 2), Game.HEIGHT / 2 - startButton.getHeight() / 2);
         sb.end();
     }
 

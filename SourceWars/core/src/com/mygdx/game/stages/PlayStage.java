@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.attack.Attack;
 import com.mygdx.game.monsters.Monster;
 import com.mygdx.game.character.Character;
 
@@ -15,6 +16,8 @@ public class PlayStage extends Stage {
     private Texture bg;
     private Character player;
     private Monster monster;
+    private Attack attack;
+    private boolean producedAttack = false;
 
     public PlayStage(GameStageManager gsm){
         super(gsm);
@@ -50,6 +53,11 @@ public class PlayStage extends Stage {
                 Gdx.input.isKeyPressed(Input.Keys.A)) {
             player.goLeft();
         }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+            attack = new Attack(player.getX(), player.getY());
+            producedAttack = true;
+        }
     }
 
     @Override
@@ -69,7 +77,9 @@ public class PlayStage extends Stage {
             player.texture = player.rightStayAnimation.get(counter % player.rightStayAnimation.size);
         }
 
-
+        if (producedAttack){
+            attack.launchAttack();
+        }
 
         monster.update(deltaTime);
         cam.update();
@@ -82,6 +92,10 @@ public class PlayStage extends Stage {
         sb.draw(bg, 0, 0);
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y);
         sb.draw(monster.getTexture(), monster.getPosition().x, monster.getPosition().y);
+        if (producedAttack){
+            sb.draw(attack.getAttackTexture(), player.getX() + attack.getX() , player.getY() + attack.getY());
+        }
+
         sb.end();
     }
 

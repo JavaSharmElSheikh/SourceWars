@@ -7,9 +7,9 @@ import com.mygdx.game.Game;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 900;
-		config.height = 568;
-		config.title = "Source Wars";
+		config.width = Game.WIDTH;
+		config.height = Game.HEIGHT;
+		config.title = Game.TITLE;
 		new LwjglApplication(new Game(), config);
 	}
 }
