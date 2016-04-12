@@ -47,9 +47,9 @@ public class Character {
         for (int i = 0; i < 18; i++) {
             rightStayAnimation.add(new Texture("FinalCharacter\\right_stay_3.png"));
         }
-        for (int i = 0; i < 18; i++) {
-            rightStayAnimation.add(new Texture("FinalCharacter\\right_stay_4.png"));
-        }
+        //for (int i = 0; i < 18; i++) {
+        //    rightStayAnimation.add(new Texture("FinalCharacter\\right_stay_4.png"));
+        //}
 
         texture = rightStayAnimation.get(0);
     }
