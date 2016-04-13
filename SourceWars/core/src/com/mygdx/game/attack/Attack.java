@@ -27,13 +27,14 @@ public class Attack {
         return position.y;
     }
 
-    public void update (float dt){
+    public void update (float dt){ }
 
-    }
-
-    public void launchAttack(){
+    public void launchRightAttack(){
         position.x += PROJECTILE_SPEED;
     }
+
+    //public void launchLeftAttack() { position.x -= PROJECTILE_SPEED;}
+
 
 
 }

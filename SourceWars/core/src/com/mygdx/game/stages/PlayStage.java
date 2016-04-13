@@ -20,10 +20,12 @@ public class PlayStage extends Stage {
     private boolean producedAttack = false;
     private float deltaX = 0;
     private boolean wasRight = true;
+    private float playerCurrentX;
+    private float playerCurrentY;
 
     public PlayStage(GameStageManager gsm){
         super(gsm);
-        player = new Character(100,150);
+        player = new Character(350,150);
         monster = new Monster(200, 150);
         bg = new Texture("MapSample.png");
         cam.setToOrtho(false, 800, 500);
@@ -75,7 +77,6 @@ public class PlayStage extends Stage {
             producedAttack = true;
         }
 
-       // float smt = player.getX();
         previousY = player.getY();
     }
 
@@ -84,7 +85,16 @@ public class PlayStage extends Stage {
         counter++;
         previousX = player.getX();
         handleInput();
-        cam.position.x = player.getPosition().x + 50;
+
+        // set cam to follow player
+        if (player.getX() < 350){
+            cam.position.x = 400;
+        }
+
+        if (player.getX() > 350){
+            cam.position.x = player.getPosition().x + 50;
+        }
+
         player.update(deltaTime);
 
         //right jump
@@ -107,16 +117,22 @@ public class PlayStage extends Stage {
             player.texture = new Texture("FinalCharacter\\left_jump_2.png");
         }
 
+        //right stay
         if (previousX == player.getX() && previousY == player.getY()){
             player.texture = player.rightStayAnimation.get(counter % player.rightStayAnimation.size);
         }
 
+        //left stay
         if (!wasRight && (previousX == player.getX() && previousY == player.getY())){
             player.texture = player.leftStayAnimation.get(counter % player.leftStayAnimation.size);
         }
 
+        //monster 1 right fly
+        monster.texture = monster.rightFlyAnimaton.get(counter % monster.rightFlyAnimaton.size);
+
+        //move attack
         if (producedAttack){
-            attack.launchAttack();
+            attack.launchRightAttack();
         }
 
         monster.update(deltaTime);
@@ -131,7 +147,7 @@ public class PlayStage extends Stage {
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y);
         sb.draw(monster.getTexture(), monster.getPosition().x, monster.getPosition().y);
         if (producedAttack){
-            sb.draw(attack.getAttackTexture(), player.getX(), attack.getY());
+            sb.draw(attack.getAttackTexture(), attack.getX(), attack.getY() + 15);
         }
 
         sb.end();
