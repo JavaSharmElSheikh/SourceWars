@@ -70,23 +70,24 @@ public class Monster {
 
     public void update(float dt) {
         counter++;
-        if (position.x == 600){
+        if (position.x == 800){
             isRightest = false;
         }
+
         velocity.scl(dt);
 
         position.add(velocity.x * dt, velocity.y, 0);
 
-        if (position.x <= 900 && isRightest == false){
+        if (position.x <= 1000 && isRightest == false){
             goRight();
             texture = rightFlyAnimation.get(counter % rightFlyAnimation.size);
         }
 
-        if (position.x == 900){
+        if (position.x == 1000){
             isRightest = true;
         }
 
-        if (isRightest && position.x > 600){
+        if (isRightest && position.x > 800){
             goLeft();
             texture = leftFlyAnimation.get(counter % leftFlyAnimation.size);
         }
@@ -112,5 +113,9 @@ public class Monster {
 
     public void dispose(){
         texture.dispose();
+    }
+
+    public void respondToAttack(){
+
     }
 }

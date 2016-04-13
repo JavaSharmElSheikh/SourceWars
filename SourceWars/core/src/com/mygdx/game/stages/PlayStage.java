@@ -26,25 +26,15 @@ public class PlayStage extends Stage {
     public PlayStage(GameStageManager gsm){
         super(gsm);
         player = new Character(350,150);
-        monster = new Monster(600, 180);
+        monster = new Monster(800, 180);
         bg = new Texture("MapSample.png");
         cam.setToOrtho(false, 800, 500);
     }
 
     @Override
     protected void handleInput() {
-
-
-        float x = -20;
-        float y = 0;
-        float w = 30;
-        float h = 30;
-        if (player.getX() > x && player.getX() < x + w){
-            player.goRight();
-        }
-
-        if(player.getY() > y && player.getY() < y + h){
-            player.goRight();
+        if (player.getX() <= 0){
+            player.setPosition(1, player.getY());
         }
 
         deltaX = 0;
@@ -90,6 +80,8 @@ public class PlayStage extends Stage {
             attack = new Attack(player.getX(), player.getY());
             producedAttack = true;
         }
+
+
 
         previousY = player.getY();
     }

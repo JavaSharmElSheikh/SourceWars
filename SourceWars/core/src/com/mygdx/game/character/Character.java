@@ -12,6 +12,7 @@ public class Character {
 
     private Vector3 position;
     private Vector3 velocity;
+    private boolean isDead;
     public Texture texture;
     public Array<Texture> rightRunAnimation;
     public Array<Texture> rightJumpAnimation;
@@ -101,6 +102,11 @@ public class Character {
         texture = rightStayAnimation.get(0);
     }
 
+    public void setPosition(float x, float y){
+        this.position.x = x;
+        this.position.y = y;
+    }
+
     public void update(float deltaTime){
         if (position.y > 0) {
         velocity.add(0, GRAVITY, 0);
@@ -115,6 +121,10 @@ public class Character {
         }
 
         velocity.scl(1 / deltaTime);
+    }
+
+    public boolean isDead(){
+        return isDead;
     }
 
     public void jump(){
