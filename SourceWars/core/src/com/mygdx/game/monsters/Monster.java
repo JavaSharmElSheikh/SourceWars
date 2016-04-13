@@ -9,50 +9,86 @@ public class Monster {
 
     private Vector3 position;
     private Vector3 velocity;
-    public Texture texture;
     private boolean isRightest;
-    public Array<Texture> rightFlyAnimaton;
+    private int counter;
+    public Texture texture;
+    public Array<Texture> rightFlyAnimation;
+    public Array<Texture> leftFlyAnimation;
+
 
     public Monster(int x, int y){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
 
-        rightFlyAnimaton = new Array<Texture>();
-        for (int i = 0; i < 20; i++) {
-            rightFlyAnimaton.add(new Texture("FinalMonsters\\monster_1_right_1.png"));
+        // right fly animation
+        rightFlyAnimation = new Array<Texture>();
+        for (int i = 0; i < 17; i++) {
+            rightFlyAnimation.add(new Texture("FinalMonsters\\monster_1_right_1.png"));
         }
 
-        for (int i = 0; i < 20; i++) {
-            rightFlyAnimaton.add(new Texture("FinalMonsters\\monster_1_right_2.png"));
+        for (int i = 0; i < 17; i++) {
+            rightFlyAnimation.add(new Texture("FinalMonsters\\monster_1_right_2.png"));
         }
 
-        for (int i = 0; i < 20; i++) {
-            rightFlyAnimaton.add(new Texture("FinalMonsters\\monster_1_right_3.png"));
+        for (int i = 0; i < 17; i++) {
+            rightFlyAnimation.add(new Texture("FinalMonsters\\monster_1_right_3.png"));
         }
 
+        for (int i = 0; i < 17; i++) {
+            rightFlyAnimation.add(new Texture("FinalMonsters\\monster_1_right_2.png"));
+        }
+
+        for (int i = 0; i < 17; i++) {
+            rightFlyAnimation.add(new Texture("FinalMonsters\\monster_1_right_1.png"));
+        }
+
+        //left fly animation
+        leftFlyAnimation = new Array<Texture>();
+
+        for (int i = 0; i < 17; i++) {
+            leftFlyAnimation.add(new Texture("FinalMonsters\\monster_1_left_1.png"));
+        }
+
+        for (int i = 0; i < 17; i++) {
+            leftFlyAnimation.add(new Texture("FinalMonsters\\monster_1_left_2.png"));
+        }
+
+        for (int i = 0; i < 17; i++) {
+            leftFlyAnimation.add(new Texture("FinalMonsters\\monster_1_left_3.png"));
+        }
+
+        for (int i = 0; i < 17; i++) {
+            leftFlyAnimation.add(new Texture("FinalMonsters\\monster_1_left_2.png"));
+        }
+
+        for (int i = 0; i < 17; i++) {
+            leftFlyAnimation.add(new Texture("FinalMonsters\\monster_1_left_1.png"));
+        }
 
         texture = new Texture("FinalMonsters\\monster_1_right_1.png");
     }
 
     public void update(float dt) {
-        if (position.x == 200){
+        counter++;
+        if (position.x == 600){
             isRightest = false;
         }
         velocity.scl(dt);
 
         position.add(velocity.x * dt, velocity.y, 0);
-        // implement collision
 
-        if (position.x <= 400 && isRightest == false){
+        if (position.x <= 900 && isRightest == false){
             goRight();
+            texture = rightFlyAnimation.get(counter % rightFlyAnimation.size);
         }
 
-        if (position.x == 400){
+        if (position.x == 900){
             isRightest = true;
         }
 
-        if (isRightest && position.x > 200){
+        if (isRightest && position.x > 600){
             goLeft();
+            texture = leftFlyAnimation.get(counter % leftFlyAnimation.size);
         }
 
         velocity.scl(1 / dt);

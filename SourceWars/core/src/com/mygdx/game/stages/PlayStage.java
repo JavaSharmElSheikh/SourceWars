@@ -26,7 +26,7 @@ public class PlayStage extends Stage {
     public PlayStage(GameStageManager gsm){
         super(gsm);
         player = new Character(350,150);
-        monster = new Monster(200, 150);
+        monster = new Monster(600, 180);
         bg = new Texture("MapSample.png");
         cam.setToOrtho(false, 800, 500);
     }
@@ -128,7 +128,8 @@ public class PlayStage extends Stage {
         }
 
         //monster 1 right fly
-        monster.texture = monster.rightFlyAnimaton.get(counter % monster.rightFlyAnimaton.size);
+
+       // monster.texture = monster.rightFlyAnimation.get(counter % monster.rightFlyAnimation.size);
 
         //move attack
         if (producedAttack){
