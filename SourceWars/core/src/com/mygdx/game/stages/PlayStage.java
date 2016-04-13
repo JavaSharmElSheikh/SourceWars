@@ -33,6 +33,20 @@ public class PlayStage extends Stage {
 
     @Override
     protected void handleInput() {
+
+
+        float x = -20;
+        float y = 0;
+        float w = 30;
+        float h = 30;
+        if (player.getX() > x && player.getX() < x + w){
+            player.goRight();
+        }
+
+        if(player.getY() > y && player.getY() < y + h){
+            player.goRight();
+        }
+
         deltaX = 0;
         if (Gdx.input.isKeyPressed(Input.Keys.UP) ||
                 Gdx.input.isKeyPressed(Input.Keys.W)) {
