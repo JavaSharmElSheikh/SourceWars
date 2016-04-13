@@ -37,9 +37,55 @@ public class PlayStage extends Stage {
             player.setPosition(1, player.getY());
         }
 
+        //first pipe
         if ((player.getX() >= 750 && player.getX() < 800) && player.getY() < Character.GROUND_LEVEL + 100){
             player.setPosition(749, player.getY());
         }
+
+        if ((player.getX() >= 845 && player.getX() < 895) && player.getY() < Character.GROUND_LEVEL + 100){
+            player.setPosition(896, player.getY());
+        }
+        //second pipe
+        if ((player.getX() >= 1425 && player.getX() < 1475) && player.getY() < Character.GROUND_LEVEL + 100){
+            player.setPosition(1424, player.getY());
+        }
+        if ((player.getX() >= 1515 && player.getX() < 1565) && player.getY() < Character.GROUND_LEVEL + 100){
+            player.setPosition(1566, player.getY());
+        }
+
+        //third pipe
+        if ((player.getX() >= 2160 && player.getX() < 2210) && player.getY() < Character.GROUND_LEVEL + 50){
+            player.setPosition(2161, player.getY());
+        }
+        if ((player.getX() >= 2252 && player.getX() < 2302) && player.getY() < Character.GROUND_LEVEL + 50){
+            player.setPosition(2303, player.getY());
+        }
+
+        //fourth pipe
+        if ((player.getX() >= 2320 && player.getX() < 2370) && player.getY() < Character.GROUND_LEVEL + 50){
+            player.setPosition(2321, player.getY());
+        }
+
+        if ((player.getX() >= 2415 && player.getX() < 2464) && player.getY() < Character.GROUND_LEVEL + 50){
+            player.setPosition(2465, player.getY());
+        }
+
+        //fifth pipe
+        if ((player.getX() >= 2672 && player.getX() < 2722) && player.getY() < Character.GROUND_LEVEL + 50){
+            player.setPosition(2673, player.getY());
+        }
+
+        if ((player.getX() >= 2742 && player.getX() < 2792) && player.getY() < Character.GROUND_LEVEL + 100){
+            player.setPosition(2743, player.getY());
+        }
+
+        if ((player.getX() >= 2890 && player.getX() < 2940) && player.getY() < Character.GROUND_LEVEL + 100){
+            player.setPosition(2941, player.getY());
+        }
+
+
+
+
 
         deltaX = 0;
         if (Gdx.input.isKeyPressed(Input.Keys.UP) ||
