@@ -3,6 +3,7 @@ package com.mygdx.game.character;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.stages.PlayStage;
 
 public class Character {
     private static final int GRAVITY = -15;
@@ -108,6 +109,7 @@ public class Character {
     }
 
     public void update(float deltaTime){
+
         if (position.y > 0) {
         velocity.add(0, GRAVITY, 0);
         }
@@ -161,6 +163,10 @@ public class Character {
 
     public Vector3 getPosition(){
         return position;
+    }
+
+    public void collideWithMonster(){
+        this.isDead = true;
     }
 
     public void dispose(){

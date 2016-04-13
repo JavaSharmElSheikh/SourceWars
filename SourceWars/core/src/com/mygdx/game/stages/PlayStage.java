@@ -37,6 +37,10 @@ public class PlayStage extends Stage {
             player.setPosition(1, player.getY());
         }
 
+        if ((player.getX() >= 750 && player.getX() < 800) && player.getY() < Character.GROUND_LEVEL + 100){
+            player.setPosition(749, player.getY());
+        }
+
         deltaX = 0;
         if (Gdx.input.isKeyPressed(Input.Keys.UP) ||
                 Gdx.input.isKeyPressed(Input.Keys.W)) {
@@ -81,13 +85,15 @@ public class PlayStage extends Stage {
             producedAttack = true;
         }
 
-
-
         previousY = player.getY();
     }
 
     @Override
     public void update(float deltaTime) {
+        if (player.isDead()){
+            gameOver();
+        }
+
         counter++;
         previousX = player.getX();
         handleInput();
@@ -102,6 +108,11 @@ public class PlayStage extends Stage {
         }
 
         player.update(deltaTime);
+
+        //star animation
+        if (producedAttack){
+        attack.update(deltaTime);
+        }
 
         //right jump
         if (previousY > player.getY() && deltaX > 0){
@@ -133,9 +144,6 @@ public class PlayStage extends Stage {
             player.texture = player.leftStayAnimation.get(counter % player.leftStayAnimation.size);
         }
 
-        //monster 1 right fly
-
-       // monster.texture = monster.rightFlyAnimation.get(counter % monster.rightFlyAnimation.size);
 
         //move attack
         if (producedAttack){
@@ -144,6 +152,11 @@ public class PlayStage extends Stage {
 
         monster.update(deltaTime);
         cam.update();
+    }
+
+    public void gameOver(){
+        gsm.pop();
+        gsm.set(new GameOverStage(gsm));
     }
 
     @Override

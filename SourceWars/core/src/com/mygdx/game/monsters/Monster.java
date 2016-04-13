@@ -3,6 +3,7 @@ package com.mygdx.game.monsters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.attack.Attack;
 
 public class Monster {
     private static final int MOVEMENT_SPEED = 2;
@@ -11,6 +12,8 @@ public class Monster {
     private Vector3 velocity;
     private boolean isRightest;
     private int counter;
+    private int health;
+    private boolean isDead;
     public Texture texture;
     public Array<Texture> rightFlyAnimation;
     public Array<Texture> leftFlyAnimation;
@@ -19,7 +22,7 @@ public class Monster {
     public Monster(int x, int y){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-
+        this.health = 4;
         // right fly animation
         rightFlyAnimation = new Array<Texture>();
         for (int i = 0; i < 17; i++) {
@@ -69,6 +72,10 @@ public class Monster {
     }
 
     public void update(float dt) {
+        if (this.health <= 0){
+            this.isDead = true;
+        }
+
         counter++;
         if (position.x == 800){
             isRightest = false;
@@ -115,7 +122,7 @@ public class Monster {
         texture.dispose();
     }
 
-    public void respondToAttack(){
-
+    public void respondToAttack(Attack attack){
+        this.health -= attack.getDamage();
     }
 }
