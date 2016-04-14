@@ -106,11 +106,13 @@ public class PlayStage extends Stage {
         }
 
         //player vs monster collision
-        if (((player.getX() <= monster.getX() + monster.getWidth() && player.getX() > monster.getX()) &&
-                (player.getY() <= monster.getY() + monster.getHeight() && player.getY() > monster.getY())) ||
-                (monster.getX() <= player.getX() + player.getWidth() && monster.getX() > player.getX()) &&
-                monster.getY() <= player.getY() + player.getHeight() && monster.getY() > player.getY()){
-            isPlayerDead = true;
+        if (!isMonsterDead) {
+            if (((player.getX() <= monster.getX() + monster.getWidth() && player.getX() > monster.getX()) &&
+                    (player.getY() <= monster.getY() + monster.getHeight() && player.getY() > monster.getY())) ||
+                    (monster.getX() <= player.getX() + player.getWidth() && monster.getX() > player.getX()) &&
+                            monster.getY() <= player.getY() + player.getHeight() && monster.getY() > player.getY()) {
+                isPlayerDead = true;
+            }
         }
 
         //attack vs monster collision
