@@ -9,18 +9,17 @@ public class Character {
     private static final int GRAVITY = -15;
     private static final int MOVEMENT_SPEED = 5;
 
-    public static final int GROUND_LEVEL = 60;
 
     private Vector3 position;
     private Vector3 velocity;
     private boolean isDead;
     private Texture texture;
-    public Array<Texture> rightRunAnimation;
-    public Array<Texture> rightJumpAnimation;
-    public Array<Texture> rightStayAnimation;
-    public Array<Texture> leftRunAnimation;
-    public Array<Texture> leftJumpAnimation;
-    public Array<Texture> leftStayAnimation;
+    private Array<Texture> rightRunAnimation;
+    private Array<Texture> rightJumpAnimation;
+    private Array<Texture> rightStayAnimation;
+    private Array<Texture> leftRunAnimation;
+    private Array<Texture> leftJumpAnimation;
+    private Array<Texture> leftStayAnimation;
 
     public Character(int x, int y){
         position = new Vector3(x, y, 0);
@@ -112,6 +111,22 @@ public class Character {
         this.position.y = y;
     }
 
+    public Array<Texture> getRightRunAnimation(){
+        return rightRunAnimation;
+    }
+
+    public Array<Texture> getRightJumpAnimation(){
+        return rightJumpAnimation;
+    }
+
+    public Array<Texture> getLeftRunAnimation(){
+        return leftRunAnimation;
+    }
+
+    public Array<Texture> getLeftJumpAnimation(){
+        return leftJumpAnimation;
+    }
+
     public void update(float deltaTime){
         if (position.y > 0) {
             velocity.add(0, GRAVITY, 0);
@@ -122,13 +137,13 @@ public class Character {
         position.add(velocity.x * deltaTime, velocity.y, 0);
 
         // implement collision
-        if (position.y < GROUND_LEVEL &&
-                !((getX() >= 760 && getX() < 890) && getY() < GROUND_LEVEL + 80) &&
-                !((getX() >= 1430 && getX() < 1560) && getY() < GROUND_LEVEL + 80) &&
-                !((getX() >= 2170 && getX() < 2300) && getY() < GROUND_LEVEL + 50) &&
-                !((getX() >= 2325 && getX() < 2455) && getY() < GROUND_LEVEL + 50) &&
-                !((getX() >= 2750 && getX() < 2880) && getY() < GROUND_LEVEL + 30)){
-            position.y = GROUND_LEVEL;
+        if (position.y < PlayStage.GROUND_LEVEL &&
+                !((getX() >= 760 && getX() < 890) && getY() < PlayStage.GROUND_LEVEL + 80) &&
+                !((getX() >= 1430 && getX() < 1560) && getY() < PlayStage.GROUND_LEVEL + 80) &&
+                !((getX() >= 2170 && getX() < 2300) && getY() < PlayStage.GROUND_LEVEL + 50) &&
+                !((getX() >= 2325 && getX() < 2455) && getY() < PlayStage.GROUND_LEVEL + 50) &&
+                !((getX() >= 2750 && getX() < 2880) && getY() < PlayStage.GROUND_LEVEL + 30)){
+            position.y = PlayStage.GROUND_LEVEL;
         }
 
         //first tube top collision
@@ -142,12 +157,12 @@ public class Character {
         }
 
         //third tube top collision
-        if ((getX() >= 2170 && getX() < 2300) && position.y < 110){
+        if ((getX() >= 2170 && getX() < 2300) && position.y < 125){
             position.y = 125;
         }
 
         //fourth tube top collision
-        if ((getX() >= 2325 && getX() < 2455) &&  position.y < 110){
+        if ((getX() >= 2325 && getX() < 2455) &&  position.y < 125){
             position.y = 125;
         }
 

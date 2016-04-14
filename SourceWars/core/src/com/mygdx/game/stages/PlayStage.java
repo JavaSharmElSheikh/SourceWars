@@ -9,6 +9,8 @@ import com.mygdx.game.monsters.Monster;
 import com.mygdx.game.character.Character;
 
 public class PlayStage extends Stage {
+    public static final int GROUND_LEVEL = 60;
+
     private static int counter = 0;
     private static float previousY = 0;
     private static float previousX = 0;
@@ -66,37 +68,36 @@ public class PlayStage extends Stage {
         }
 
         //first pipe
-        if ((player.getX() >= 755 && player.getX() < 805) && player.getY() < Character.GROUND_LEVEL + 70){
+        if ((player.getX() >= 755 && player.getX() < 805) && player.getY() < GROUND_LEVEL + 70){
             player.setPosition(754, player.getY());
         }
 
-        if ((player.getX() >= 845 && player.getX() < 895) && player.getY() < Character.GROUND_LEVEL + 70){
+        if ((player.getX() >= 845 && player.getX() < 895) && player.getY() < GROUND_LEVEL + 70){
             player.setPosition(896, player.getY());
         }
 
         //second pipe
-        if ((player.getX() >= 1425 && player.getX() < 1475) && player.getY() < Character.GROUND_LEVEL + 70){
+        if ((player.getX() >= 1425 && player.getX() < 1475) && player.getY() < GROUND_LEVEL + 70){
             player.setPosition(1424, player.getY());
         }
-        if ((player.getX() >= 1515 && player.getX() < 1565) && player.getY() < Character.GROUND_LEVEL + 70){
+        if ((player.getX() >= 1515 && player.getX() < 1565) && player.getY() < GROUND_LEVEL + 70){
             player.setPosition(1566, player.getY());
         }
 
-
         //third pipe
-        if ((player.getX() >= 2165 && player.getX() < 2215) && player.getY() < Character.GROUND_LEVEL + 30){
+        if ((player.getX() >= 2165 && player.getX() < 2215) && player.getY() < GROUND_LEVEL + 30){
             player.setPosition(2164, player.getY());
         }
-        if ((player.getX() >= 2255 && player.getX() < 2305) && player.getY() < Character.GROUND_LEVEL + 30){
+        if ((player.getX() >= 2255 && player.getX() < 2305) && player.getY() < GROUND_LEVEL + 30){
             player.setPosition(2306, player.getY());
         }
 
         //fourth pipe
-        if ((player.getX() >= 2320 && player.getX() < 2370) && player.getY() < Character.GROUND_LEVEL + 30){
+        if ((player.getX() >= 2320 && player.getX() < 2370) && player.getY() < GROUND_LEVEL + 30){
             player.setPosition(2319, player.getY());
         }
 
-        if ((player.getX() >= 2410 && player.getX() < 2460) && player.getY() < Character.GROUND_LEVEL + 30){
+        if ((player.getX() >= 2410 && player.getX() < 2460) && player.getY() < GROUND_LEVEL + 30){
             player.setPosition(2461, player.getY());
         }
 
@@ -108,8 +109,6 @@ public class PlayStage extends Stage {
         if ((player.getX() >= 2832 && player.getX() < 2882) && player.getY() < player.getTexture().getHeight() * 2){
             player.setPosition(2885, player.getY());
         }
-
-        //fifth pipe jump
 
         //player vs monster collision
         if (!isMonsterDead) {
@@ -137,15 +136,15 @@ public class PlayStage extends Stage {
         deltaX = 0;
         if (Gdx.input.isKeyPressed(Input.Keys.UP) ||
                 Gdx.input.isKeyPressed(Input.Keys.W)) {
-             if (player.getY() == Character.GROUND_LEVEL ||
+             if (player.getY() == GROUND_LEVEL ||
                     player.getY() == 160 ||
                     player.getY() == 190 ||
                     player.getY() == 125){
                  player.jump();
                  if (wasRight){
-                    player.setTexture(player.rightJumpAnimation.get(0));
+                    player.setTexture(player.getRightJumpAnimation().get(0));
                  } else {
-                     player.setTexture(player.leftJumpAnimation.get(0));
+                     player.setTexture(player.getRightJumpAnimation().get(0));
                  }
             }
         }
@@ -156,9 +155,9 @@ public class PlayStage extends Stage {
             deltaX++;
             wasRight = true;
             if (previousY < player.getY()){
-                player.setTexture(new Texture("FinalCharacter\\right_jump_1.png"));
+                player.setTexture(player.getRightJumpAnimation().get(0));
             } else {
-                player.setTexture(player.rightRunAnimation.get(counter % player.rightRunAnimation.size));
+                player.setTexture(player.getRightRunAnimation().get(counter % player.getRightRunAnimation().size));
             }
         }
 
@@ -168,9 +167,9 @@ public class PlayStage extends Stage {
             wasRight = false;
             deltaX--;
             if (previousY < player.getY()){
-                player.setTexture(new Texture("FinalCharacter\\left_jump_1.png"));
+                player.setTexture(player.getLeftJumpAnimation().get(0));
             } else {
-                player.setTexture(player.leftRunAnimation.get(counter % player.leftRunAnimation.size));
+                player.setTexture(player.getLeftRunAnimation().get(counter % player.getLeftRunAnimation().size));
             }
         }
 
@@ -240,9 +239,7 @@ public class PlayStage extends Stage {
         sb.begin();
         sb.draw(bg, 0, 0);
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y);
-        if (isMonsterDead) {
-           //sb.draw(monster.getTexture(), monster.getX(), monster.getY() - 120);
-        } else {
+        if (!isMonsterDead) {
             sb.draw(monster.getTexture(), monster.getPosition().x, monster.getPosition().y);
         }
 
