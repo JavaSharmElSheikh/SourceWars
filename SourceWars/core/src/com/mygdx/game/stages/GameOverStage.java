@@ -2,8 +2,10 @@ package com.mygdx.game.stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Game;
 
 public class GameOverStage extends Stage {
     private SpriteBatch batch;
@@ -11,11 +13,12 @@ public class GameOverStage extends Stage {
 
     public GameOverStage(GameStageManager gsm){
         super(gsm);
+        texture = new Texture("end_gameLost.png");
     }
 
     @Override
     protected void handleInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)){
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             gsm.set(new MenuStage(gsm));
         }
     }
@@ -28,11 +31,13 @@ public class GameOverStage extends Stage {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
+        //hardcoded, fix later
+        sb.draw(texture, (cam.position.x + texture.getWidth()/ 2), cam.position.y - 50);
         sb.end();
     }
 
     @Override
     public void dispose() {
-
+        texture.dispose();
     }
 }

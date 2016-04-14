@@ -17,7 +17,8 @@ public class MenuStage extends Stage {
     @Override
     protected void handleInput() {
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
-            gsm.set(new PlayStage(gsm));
+           gsm.set(new PlayStage(gsm));
+           // gsm.set(new GameOverStage(gsm));
         }
     }
 

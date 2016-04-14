@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector3;
 
 public abstract class Stage {
     protected OrthographicCamera cam;
-    protected Vector3 mouse;
     protected GameStageManager gsm;
 
     protected Stage(GameStageManager gsm){

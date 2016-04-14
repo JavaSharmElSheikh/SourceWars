@@ -14,7 +14,7 @@ public class Character {
     private Vector3 position;
     private Vector3 velocity;
     private boolean isDead;
-    public Texture texture;
+    private Texture texture;
     public Array<Texture> rightRunAnimation;
     public Array<Texture> rightJumpAnimation;
     public Array<Texture> rightStayAnimation;
@@ -100,7 +100,11 @@ public class Character {
             leftStayAnimation.add(new Texture("FinalCharacter\\left_stay_3.png"));
         }
 
-        texture = rightStayAnimation.get(0);
+        this.texture = rightStayAnimation.get(0);
+    }
+
+    public void setTexture(Texture texture){
+        this.texture = texture;
     }
 
     public void setPosition(float x, float y){
@@ -109,12 +113,12 @@ public class Character {
     }
 
     public void update(float deltaTime){
-
         if (position.y > 0) {
-        velocity.add(0, GRAVITY, 0);
+            velocity.add(0, GRAVITY, 0);
         }
 
         velocity.scl(deltaTime);
+
         position.add(velocity.x * deltaTime, velocity.y, 0);
 
         // implement collision
@@ -123,6 +127,36 @@ public class Character {
         }
 
         velocity.scl(1 / deltaTime);
+
+        //right jump
+        if (PlayStage.getPreviousY() > getY() && PlayStage.getDeltaX() > 0){
+            texture = new Texture("FinalCharacter\\right_jump_2.png");
+        }
+
+        //left jump
+        if (PlayStage.getPreviousY() > getY() && PlayStage.getDeltaX() < 0){
+            texture = new Texture("FinalCharacter\\left_jump_2.png");
+        }
+
+        //right fall
+        if (PlayStage.getPreviousY() > getY() && PlayStage.wasRight()){
+            texture = new Texture("FinalCharacter\\right_jump_2.png");
+        }
+
+        //left fall
+        if (PlayStage.getPreviousY() > getY() && !PlayStage.wasRight()){
+            texture = new Texture("FinalCharacter\\left_jump_2.png");
+        }
+
+        //right stay
+        if (PlayStage.getPreviousX() == getX() && PlayStage.getPreviousY() == getY()){
+            texture = rightStayAnimation.get(PlayStage.getCounter() % rightStayAnimation.size);
+        }
+
+        //left stay
+        if (!PlayStage.wasRight() && (PlayStage.getPreviousX() == getX() && PlayStage.getPreviousY() == getY())){
+            texture = leftStayAnimation.get(PlayStage.getCounter() % leftStayAnimation.size);
+        }
     }
 
     public boolean isDead(){

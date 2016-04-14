@@ -39,6 +39,14 @@ public class Attack {
         return position.y;
     }
 
+    public float getWidth(){
+        return attackTexture.getWidth();
+    }
+
+    public float getHeight(){
+        return attackTexture.getHeight();
+    }
+
     public int getDamage(){
         return this.damage;
     }

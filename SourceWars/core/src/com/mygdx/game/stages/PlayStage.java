@@ -9,17 +9,20 @@ import com.mygdx.game.monsters.Monster;
 import com.mygdx.game.character.Character;
 
 public class PlayStage extends Stage {
-    static private int counter = 0;
-    static private float previousY = 0;
-    static private float previousX = 0;
+    private static int counter = 0;
+    private static float previousY = 0;
+    private static float previousX = 0;
+    private static boolean wasRight = true;
+    private static float deltaX = 0;
 
     private Texture bg;
+    private boolean isPlayerDead;
+    private boolean isMonsterDead;
     private Character player;
     private Monster monster;
     private Attack attack;
     private boolean producedAttack = false;
-    private float deltaX = 0;
-    private boolean wasRight = true;
+
     private float playerCurrentX;
     private float playerCurrentY;
 
@@ -31,8 +34,27 @@ public class PlayStage extends Stage {
         cam.setToOrtho(false, 800, 500);
     }
 
-    @Override
-    protected void handleInput() {
+    public static int getCounter(){
+        return counter;
+    }
+
+    public static boolean wasRight(){
+        return wasRight;
+    }
+
+    public static float getPreviousX(){
+        return previousX;
+    }
+
+    public static float getPreviousY(){
+        return previousY;
+    }
+
+    public static float getDeltaX(){
+        return deltaX;
+    }
+
+    private void handleCollision(){
         if (player.getX() <= 0){
             player.setPosition(1, player.getY());
         }
@@ -83,19 +105,36 @@ public class PlayStage extends Stage {
             player.setPosition(2941, player.getY());
         }
 
+        //player vs monster collision
+        if (((player.getX() <= monster.getX() + monster.getWidth() && player.getX() > monster.getX()) &&
+                (player.getY() <= monster.getY() + monster.getHeight() && player.getY() > monster.getY())) ||
+                (monster.getX() <= player.getX() + player.getWidth() && monster.getX() > player.getX()) &&
+                monster.getY() <= player.getY() + player.getHeight() && monster.getY() > player.getY()){
+            isPlayerDead = true;
+        }
 
+        //attack vs monster collision
+        if (producedAttack) {
+            if (((attack.getX() <= monster.getX() + monster.getWidth() && attack.getX() > monster.getX()) &&
+                    (attack.getY() <= monster.getY() + monster.getHeight() && attack.getY() > monster.getY())) ||
+                    (monster.getX() <= attack.getX() + attack.getWidth() && monster.getX() > attack.getX()) &&
+                    monster.getY() <= attack.getY() + attack.getHeight() && monster.getY() > attack.getY()) {
+                isMonsterDead = true;
+            }
+        }
+    }
 
-
-
+    @Override
+    protected void handleInput() {
         deltaX = 0;
         if (Gdx.input.isKeyPressed(Input.Keys.UP) ||
                 Gdx.input.isKeyPressed(Input.Keys.W)) {
              if (player.getY() <= Character.GROUND_LEVEL){
                  player.jump();
                  if (wasRight){
-                    player.texture = player.rightJumpAnimation.get(0);
+                    player.setTexture(player.rightJumpAnimation.get(0));
                  } else {
-                     player.texture = player.leftJumpAnimation.get(0);
+                     player.setTexture(player.leftJumpAnimation.get(0));
                  }
             }
         }
@@ -106,10 +145,9 @@ public class PlayStage extends Stage {
             deltaX++;
             wasRight = true;
             if (previousY < player.getY()){
-                player.texture = new Texture("FinalCharacter\\right_jump_1.png");
-            }
-            else {
-            player.texture = player.rightRunAnimation.get(counter % player.rightRunAnimation.size);
+                player.setTexture(new Texture("FinalCharacter\\right_jump_1.png"));
+            } else {
+                player.setTexture(player.rightRunAnimation.get(counter % player.rightRunAnimation.size));
             }
         }
 
@@ -119,10 +157,9 @@ public class PlayStage extends Stage {
             wasRight = false;
             deltaX--;
             if (previousY < player.getY()){
-                player.texture = new Texture("FinalCharacter\\left_jump_1.png");
-            }
-            else {
-                player.texture = player.leftRunAnimation.get(counter % player.leftRunAnimation.size);
+                player.setTexture(new Texture("FinalCharacter\\left_jump_1.png"));
+            } else {
+                player.setTexture(player.leftRunAnimation.get(counter % player.leftRunAnimation.size));
             }
         }
 
@@ -136,12 +173,26 @@ public class PlayStage extends Stage {
 
     @Override
     public void update(float deltaTime) {
-        if (player.isDead()){
+        if (isPlayerDead){
             gameOver();
+        }
+
+        if (isMonsterDead){
+            monster.isDead();
+        }
+
+        monster.update(deltaTime);
+
+        //monster respond attack
+        if (producedAttack){
+            if ((attack.getX() == monster.getX()) && attack.getY() == monster.getY()){
+                monster.respondToAttack(attack);
+            }
         }
 
         counter++;
         previousX = player.getX();
+        handleCollision();
         handleInput();
 
         // set cam to follow player
@@ -157,51 +208,14 @@ public class PlayStage extends Stage {
 
         //star animation
         if (producedAttack){
-        attack.update(deltaTime);
-        }
-
-        //right jump
-        if (previousY > player.getY() && deltaX > 0){
-            player.texture = new Texture("FinalCharacter\\right_jump_2.png");
-        }
-
-        //left jump
-        if (previousY > player.getY() && deltaX < 0){
-            player.texture = new Texture("FinalCharacter\\left_jump_2.png");
-        }
-
-        //right fall
-        if (previousY > player.getY() && wasRight){
-            player.texture = new Texture("FinalCharacter\\right_jump_2.png");
-        }
-
-        //left fall
-        if (previousY > player.getY() && !wasRight){
-            player.texture = new Texture("FinalCharacter\\left_jump_2.png");
-        }
-
-        //right stay
-        if (previousX == player.getX() && previousY == player.getY()){
-            player.texture = player.rightStayAnimation.get(counter % player.rightStayAnimation.size);
-        }
-
-        //left stay
-        if (!wasRight && (previousX == player.getX() && previousY == player.getY())){
-            player.texture = player.leftStayAnimation.get(counter % player.leftStayAnimation.size);
-        }
-
-
-        //move attack
-        if (producedAttack){
+            attack.update(deltaTime);
             attack.launchRightAttack();
         }
 
-        monster.update(deltaTime);
         cam.update();
     }
 
     public void gameOver(){
-        gsm.pop();
         gsm.set(new GameOverStage(gsm));
     }
 
@@ -211,7 +225,10 @@ public class PlayStage extends Stage {
         sb.begin();
         sb.draw(bg, 0, 0);
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y);
-        sb.draw(monster.getTexture(), monster.getPosition().x, monster.getPosition().y);
+        if (!isMonsterDead) {
+            sb.draw(monster.getTexture(), monster.getPosition().x, monster.getPosition().y);
+        }
+
         if (producedAttack){
             sb.draw(attack.getAttackTexture(), attack.getX(), attack.getY() + 15);
         }
