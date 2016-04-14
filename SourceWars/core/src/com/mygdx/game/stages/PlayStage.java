@@ -62,77 +62,54 @@ public class PlayStage extends Stage {
         }
         // right end map collision
         if (player.getX() >= 7565){
-            player.setPosition(7564,player.getY());
+            player.setPosition(7564, player.getY());
         }
 
         //first pipe
-        if ((player.getX() >= 750 && player.getX() < 800) && player.getY() < Character.GROUND_LEVEL + 100){
-            player.setPosition(749, player.getY());
+        if ((player.getX() >= 755 && player.getX() < 805) && player.getY() < Character.GROUND_LEVEL + 70){
+            player.setPosition(754, player.getY());
         }
 
-        if ((player.getX() >= 845 && player.getX() < 895) && player.getY() < Character.GROUND_LEVEL + 100){
+        if ((player.getX() >= 845 && player.getX() < 895) && player.getY() < Character.GROUND_LEVEL + 70){
             player.setPosition(896, player.getY());
         }
-        // first pipe jump
-        if ((player.getX() >= 750 && player.getX() < 894) && player.getY() < Character.GROUND_LEVEL + 100){
-            player.jump();
-        }
+
         //second pipe
-        if ((player.getX() >= 1425 && player.getX() < 1475) && player.getY() < Character.GROUND_LEVEL + 100){
+        if ((player.getX() >= 1425 && player.getX() < 1475) && player.getY() < Character.GROUND_LEVEL + 70){
             player.setPosition(1424, player.getY());
         }
-        if ((player.getX() >= 1515 && player.getX() < 1565) && player.getY() < Character.GROUND_LEVEL + 100){
+        if ((player.getX() >= 1515 && player.getX() < 1565) && player.getY() < Character.GROUND_LEVEL + 70){
             player.setPosition(1566, player.getY());
         }
-        //second pipe jump
-        if ((player.getX() >= 1425 && player.getX() < 1564) && player.getY() < Character.GROUND_LEVEL + 100){
-            player.jump();
-        }
+
 
         //third pipe
-        if ((player.getX() >= 2160 && player.getX() < 2210) && player.getY() < Character.GROUND_LEVEL + 50){
-            player.setPosition(2161, player.getY());
+        if ((player.getX() >= 2165 && player.getX() < 2215) && player.getY() < Character.GROUND_LEVEL + 30){
+            player.setPosition(2164, player.getY());
         }
-        if ((player.getX() >= 2252 && player.getX() < 2302) && player.getY() < Character.GROUND_LEVEL + 50){
-            player.setPosition(2303, player.getY());
-        }
-        //third pipe jump
-        if ((player.getX() >= 2165 && player.getX() < 2297) && player.getY() < Character.GROUND_LEVEL + 50){
-            player.jump();
+        if ((player.getX() >= 2255 && player.getX() < 2305) && player.getY() < Character.GROUND_LEVEL + 30){
+            player.setPosition(2306, player.getY());
         }
 
         //fourth pipe
-        if ((player.getX() >= 2320 && player.getX() < 2370) && player.getY() < Character.GROUND_LEVEL + 50){
-            player.setPosition(2321, player.getY());
+        if ((player.getX() >= 2320 && player.getX() < 2370) && player.getY() < Character.GROUND_LEVEL + 30){
+            player.setPosition(2319, player.getY());
         }
 
-        if ((player.getX() >= 2415 && player.getX() < 2464) && player.getY() < Character.GROUND_LEVEL + 50){
-            player.setPosition(2465, player.getY());
-        }
-        //fourth pipe jump
-        if ((player.getX() >= 2325 && player.getX() < 2463) && player.getY() < Character.GROUND_LEVEL + 50){
-            player.jump();
+        if ((player.getX() >= 2410 && player.getX() < 2460) && player.getY() < Character.GROUND_LEVEL + 30){
+            player.setPosition(2461, player.getY());
         }
 
         //fifth pipe
-
-       // if ((player.getX() >= 2672 && player.getX() < 2722) && player.getY() < Character.GROUND_LEVEL + 50){
-       //     player.setPosition(2673, player.getY());
-       // }
-
-        if ((player.getX() >= 2742 && player.getX() < 2792) && player.getY() < Character.GROUND_LEVEL + 130){
-            player.setPosition(2743, player.getY());
+        if ((player.getX() >= 2742 && player.getX() < 2792) && player.getY() < player.getTexture().getHeight() * 2){
+            player.setPosition(2741, player.getY());
         }
 
-        if ((player.getX() >= 2890 && player.getX() < 2940) && player.getY() < Character.GROUND_LEVEL + 100){
-            player.setPosition(2941, player.getY());
+        if ((player.getX() >= 2832 && player.getX() < 2882) && player.getY() < player.getTexture().getHeight() * 2){
+            player.setPosition(2885, player.getY());
         }
 
         //fifth pipe jump
-
-        if ((player.getX() >= 2744 && player.getX() < 2939) && player.getY() < Character.GROUND_LEVEL + 130){
-            player.jump();
-        }
 
         //player vs monster collision
         if (!isMonsterDead) {
@@ -160,7 +137,10 @@ public class PlayStage extends Stage {
         deltaX = 0;
         if (Gdx.input.isKeyPressed(Input.Keys.UP) ||
                 Gdx.input.isKeyPressed(Input.Keys.W)) {
-             if (player.getY() <= Character.GROUND_LEVEL){
+             if (player.getY() == Character.GROUND_LEVEL ||
+                    player.getY() == 160 ||
+                    player.getY() == 190 ||
+                    player.getY() == 125){
                  player.jump();
                  if (wasRight){
                     player.setTexture(player.rightJumpAnimation.get(0));
@@ -260,7 +240,9 @@ public class PlayStage extends Stage {
         sb.begin();
         sb.draw(bg, 0, 0);
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y);
-        if (!isMonsterDead) {
+        if (isMonsterDead) {
+           //sb.draw(monster.getTexture(), monster.getX(), monster.getY() - 120);
+        } else {
             sb.draw(monster.getTexture(), monster.getPosition().x, monster.getPosition().y);
         }
 

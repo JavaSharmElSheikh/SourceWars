@@ -122,8 +122,38 @@ public class Character {
         position.add(velocity.x * deltaTime, velocity.y, 0);
 
         // implement collision
-        if (position.y < GROUND_LEVEL){
+        if (position.y < GROUND_LEVEL &&
+                !((getX() >= 760 && getX() < 890) && getY() < GROUND_LEVEL + 80) &&
+                !((getX() >= 1430 && getX() < 1560) && getY() < GROUND_LEVEL + 80) &&
+                !((getX() >= 2170 && getX() < 2300) && getY() < GROUND_LEVEL + 50) &&
+                !((getX() >= 2325 && getX() < 2455) && getY() < GROUND_LEVEL + 50) &&
+                !((getX() >= 2750 && getX() < 2880) && getY() < GROUND_LEVEL + 30)){
             position.y = GROUND_LEVEL;
+        }
+
+        //first tube top collision
+        if ((position.x >= 760 && position.x < 890) && position.y < 160){
+            position.y = 160;
+        }
+
+        //second tube top collision
+        if ((position.x >= 1430 && position.x < 1560) && position.y < 160){
+            position.y = 160;
+        }
+
+        //third tube top collision
+        if ((getX() >= 2170 && getX() < 2300) && position.y < 110){
+            position.y = 125;
+        }
+
+        //fourth tube top collision
+        if ((getX() >= 2325 && getX() < 2455) &&  position.y < 110){
+            position.y = 125;
+        }
+
+        //fifth tube top collision
+        if ((getX() >= 2750 && getX() < 2880) &&  position.y < 190){
+            position.y = 190;
         }
 
         velocity.scl(1 / deltaTime);
