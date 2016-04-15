@@ -9,7 +9,6 @@ public class Character {
     private static final int GRAVITY = -15;
     private static final int MOVEMENT_SPEED = 5;
 
-
     private Vector3 position;
     private Vector3 velocity;
     private boolean isDead;
@@ -24,7 +23,35 @@ public class Character {
     public Character(int x, int y){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
+        loadTextures();
+    }
 
+    public void setTexture(Texture texture){
+        this.texture = texture;
+    }
+
+    public void setPosition(float x, float y){
+        this.position.x = x;
+        this.position.y = y;
+    }
+
+    public Array<Texture> getRightRunAnimation(){
+        return rightRunAnimation;
+    }
+
+    public Array<Texture> getRightJumpAnimation(){
+        return rightJumpAnimation;
+    }
+
+    public Array<Texture> getLeftRunAnimation(){
+        return leftRunAnimation;
+    }
+
+    public Array<Texture> getLeftJumpAnimation(){
+        return leftJumpAnimation;
+    }
+
+    public void loadTextures(){
         //right run
         rightRunAnimation = new Array<Texture>();
         for (int i = 0; i < 8; i++) {
@@ -100,31 +127,6 @@ public class Character {
         }
 
         this.texture = rightStayAnimation.get(0);
-    }
-
-    public void setTexture(Texture texture){
-        this.texture = texture;
-    }
-
-    public void setPosition(float x, float y){
-        this.position.x = x;
-        this.position.y = y;
-    }
-
-    public Array<Texture> getRightRunAnimation(){
-        return rightRunAnimation;
-    }
-
-    public Array<Texture> getRightJumpAnimation(){
-        return rightJumpAnimation;
-    }
-
-    public Array<Texture> getLeftRunAnimation(){
-        return leftRunAnimation;
-    }
-
-    public Array<Texture> getLeftJumpAnimation(){
-        return leftJumpAnimation;
     }
 
     public void update(float deltaTime){

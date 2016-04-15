@@ -5,8 +5,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.attack.Attack;
-import com.mygdx.game.monsters.Monster;
+import com.mygdx.game.monsters.FlyingMonster;
 import com.mygdx.game.character.Character;
+import com.mygdx.game.monsters.MushroomMonster;
 
 public class PlayStage extends Stage {
     public static final int GROUND_LEVEL = 60;
@@ -18,20 +19,21 @@ public class PlayStage extends Stage {
     private static float deltaX = 0;
 
     private Texture bg;
+
     private boolean isPlayerDead;
-    private boolean isMonsterDead;
+    private boolean isFlyingMonsterDead;
+    private boolean isMushroomMonsterDead;
     private Character player;
-    private Monster monster;
+    private FlyingMonster flyingMonster;
+    private MushroomMonster mushroomMonster;
     private Attack attack;
     private boolean producedAttack = false;
-
-    private float playerCurrentX;
-    private float playerCurrentY;
 
     public PlayStage(GameStageManager gsm){
         super(gsm);
         player = new Character(350,150);
-        monster = new Monster(800, 180);
+        flyingMonster = new FlyingMonster(800, 180);
+        mushroomMonster = new MushroomMonster(500, GROUND_LEVEL + 1);
         bg = new Texture("MapSample.png");
         cam.setToOrtho(false, 800, 500);
     }
@@ -57,7 +59,6 @@ public class PlayStage extends Stage {
     }
 
     private void handleCollision(){
-
         // left end map collision
         if (player.getX() <= 0){
             player.setPosition(1, player.getY());
@@ -110,23 +111,43 @@ public class PlayStage extends Stage {
             player.setPosition(2885, player.getY());
         }
 
-        //player vs monster collision
-        if (!isMonsterDead) {
-            if (((player.getX() <= monster.getX() + monster.getWidth() && player.getX() > monster.getX()) &&
-                    (player.getY() <= monster.getY() + monster.getHeight() && player.getY() > monster.getY())) ||
-                    (monster.getX() <= player.getX() + player.getWidth() && monster.getX() > player.getX()) &&
-                            monster.getY() <= player.getY() + player.getHeight() && monster.getY() > player.getY()) {
+        //player vs flyingMonster collision
+        if (!isFlyingMonsterDead) {
+            if (((player.getX() <= flyingMonster.getX() + flyingMonster.getWidth() && player.getX() > flyingMonster.getX()) &&
+                    (player.getY() <= flyingMonster.getY() + flyingMonster.getHeight() && player.getY() > flyingMonster.getY())) ||
+                    (flyingMonster.getX() <= player.getX() + player.getWidth() && flyingMonster.getX() > player.getX()) &&
+                            flyingMonster.getY() <= player.getY() + player.getHeight() && flyingMonster.getY() > player.getY()) {
                 isPlayerDead = true;
             }
         }
 
-        //attack vs monster collision
-        if (producedAttack) {
-            if (((attack.getX() <= monster.getX() + monster.getWidth() && attack.getX() > monster.getX()) &&
-                    (attack.getY() <= monster.getY() + monster.getHeight() && attack.getY() > monster.getY())) ||
-                    (monster.getX() <= attack.getX() + attack.getWidth() && monster.getX() > attack.getX()) &&
-                    monster.getY() <= attack.getY() + attack.getHeight() && monster.getY() > attack.getY()) {
-                isMonsterDead = true;
+        //player vs mushroom collision
+        if (!isMushroomMonsterDead) {
+            if (((player.getX() <= mushroomMonster.getX() + mushroomMonster.getWidth() && player.getX() > mushroomMonster.getX()) &&
+                    (player.getY() <= mushroomMonster.getY() + mushroomMonster.getHeight() && player.getY() > mushroomMonster.getY())) ||
+                    (mushroomMonster.getX() <= player.getX() + player.getWidth() && mushroomMonster.getX() > player.getX()) &&
+                            mushroomMonster.getY() <= player.getY() + player.getHeight() && mushroomMonster.getY() > player.getY()) {
+                isPlayerDead = true;
+            }
+        }
+
+        //attack vs flyingMonster collision
+        if (producedAttack && attack.getDistanceTravelled() <= 200) {
+            if (((attack.getX() <= flyingMonster.getX() + flyingMonster.getWidth() && attack.getX() > flyingMonster.getX()) &&
+                    (attack.getY() <= flyingMonster.getY() + flyingMonster.getHeight() && attack.getY() > flyingMonster.getY())) ||
+                    (flyingMonster.getX() <= attack.getX() + attack.getWidth() && flyingMonster.getX() > attack.getX()) &&
+                    flyingMonster.getY() <= attack.getY() + attack.getHeight() && flyingMonster.getY() > attack.getY()) {
+                flyingMonster.respondToAttack(attack);
+            }
+        }
+
+        //attack and mushroom collision
+        if (producedAttack && attack.getDistanceTravelled() <= 200) {
+            if (((attack.getX() <= mushroomMonster.getX() + mushroomMonster.getWidth() && attack.getX() > mushroomMonster.getX()) &&
+                    (attack.getY() <= mushroomMonster.getY() + mushroomMonster.getHeight() && attack.getY() > mushroomMonster.getY())) ||
+                    (mushroomMonster.getX() <= attack.getX() + attack.getWidth() && mushroomMonster.getX() > attack.getX()) &&
+                            mushroomMonster.getY() <= attack.getY() + attack.getHeight() && mushroomMonster.getY() > attack.getY()) {
+                mushroomMonster.respondToAttack(attack);
             }
         }
     }
@@ -187,18 +208,8 @@ public class PlayStage extends Stage {
             gameOver();
         }
 
-        if (isMonsterDead){
-            monster.isDead();
-        }
-
-        monster.update(deltaTime);
-
-        //monster respond attack
-        if (producedAttack){
-            if ((attack.getX() == monster.getX()) && attack.getY() == monster.getY()){
-                monster.respondToAttack(attack);
-            }
-        }
+        flyingMonster.update(deltaTime);
+        mushroomMonster.update(deltaTime);
 
         counter++;
         previousX = player.getX();
@@ -209,10 +220,6 @@ public class PlayStage extends Stage {
         if (player.getX() < 350){
             cam.position.x = 400;
         }
-
-       // if (player.getX() > 350){
-       //     cam.position.x = player.getPosition().x + 50;
-       // }
 
         if (player.getX() > 350 && player.getX() < bg.getWidth() - 480 ){
             cam.position.x = player.getPosition().x + 50;
@@ -239,11 +246,17 @@ public class PlayStage extends Stage {
         sb.begin();
         sb.draw(bg, 0, 0);
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y);
-        if (!isMonsterDead) {
-            sb.draw(monster.getTexture(), monster.getPosition().x, monster.getPosition().y);
+        if (flyingMonster.getHealth() > 0) {
+            isFlyingMonsterDead = true;
+            sb.draw(flyingMonster.getTexture(), flyingMonster.getX(), flyingMonster.getY());
         }
 
-        if (producedAttack){
+        if (mushroomMonster.getHealth() > 0){
+            isMushroomMonsterDead = true;
+            sb.draw(mushroomMonster.getTexture(), mushroomMonster.getX(), mushroomMonster.getY());
+        }
+
+        if (producedAttack && attack.getDistanceTravelled() <= 200){
             sb.draw(attack.getAttackTexture(), attack.getX(), attack.getY() + 15);
         }
 
@@ -252,7 +265,8 @@ public class PlayStage extends Stage {
 
     @Override
     public void dispose() {
-        monster.dispose();
+        flyingMonster.dispose();
+        mushroomMonster.dispose();
         player.dispose();
         bg.dispose();
     }
