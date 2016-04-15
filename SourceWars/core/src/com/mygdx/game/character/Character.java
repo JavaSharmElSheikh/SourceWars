@@ -129,15 +129,7 @@ public class Character {
         this.texture = rightStayAnimation.get(0);
     }
 
-    public void update(float deltaTime){
-        if (position.y > 0) {
-            velocity.add(0, GRAVITY, 0);
-        }
-
-        velocity.scl(deltaTime);
-
-        position.add(velocity.x * deltaTime, velocity.y, 0);
-
+    public void handleCollision(){
         // implement collision
         if (position.y < PlayStage.GROUND_LEVEL &&
                 !((getX() >= 760 && getX() < 890) && getY() < PlayStage.GROUND_LEVEL + 80) &&
@@ -172,6 +164,19 @@ public class Character {
         if ((getX() >= 2750 && getX() < 2880) &&  position.y < 190){
             position.y = 190;
         }
+    }
+
+    public void update(float deltaTime){
+
+        if (position.y > 0) {
+            velocity.add(0, GRAVITY, 0);
+        }
+
+        velocity.scl(deltaTime);
+
+        position.add(velocity.x * deltaTime, velocity.y, 0);
+
+        handleCollision();
 
         velocity.scl(1 / deltaTime);
 

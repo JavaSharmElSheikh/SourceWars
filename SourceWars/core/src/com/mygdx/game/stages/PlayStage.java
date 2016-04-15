@@ -19,15 +19,15 @@ public class PlayStage extends Stage {
     private static float deltaX = 0;
 
     private Texture bg;
-
     private boolean isPlayerDead;
     private boolean isFlyingMonsterDead;
     private boolean isMushroomMonsterDead;
+    private boolean isProducedAttack;
     private Character player;
     private FlyingMonster flyingMonster;
     private MushroomMonster mushroomMonster;
     private Attack attack;
-    private boolean producedAttack = false;
+    private boolean producedAttack;
 
     public PlayStage(GameStageManager gsm){
         super(gsm);
@@ -112,7 +112,7 @@ public class PlayStage extends Stage {
         }
 
         //player vs flyingMonster collision
-        if (!isFlyingMonsterDead) {
+        if (!flyingMonster.getIsDead()) {
             if (((player.getX() <= flyingMonster.getX() + flyingMonster.getWidth() && player.getX() > flyingMonster.getX()) &&
                     (player.getY() <= flyingMonster.getY() + flyingMonster.getHeight() && player.getY() > flyingMonster.getY())) ||
                     (flyingMonster.getX() <= player.getX() + player.getWidth() && flyingMonster.getX() > player.getX()) &&
@@ -122,7 +122,7 @@ public class PlayStage extends Stage {
         }
 
         //player vs mushroom collision
-        if (!isMushroomMonsterDead) {
+        if (!mushroomMonster.getIsDead()) {
             if (((player.getX() <= mushroomMonster.getX() + mushroomMonster.getWidth() && player.getX() > mushroomMonster.getX()) &&
                     (player.getY() <= mushroomMonster.getY() + mushroomMonster.getHeight() && player.getY() > mushroomMonster.getY())) ||
                     (mushroomMonster.getX() <= player.getX() + player.getWidth() && mushroomMonster.getX() > player.getX()) &&
@@ -247,12 +247,10 @@ public class PlayStage extends Stage {
         sb.draw(bg, 0, 0);
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y);
         if (flyingMonster.getHealth() > 0) {
-            isFlyingMonsterDead = true;
             sb.draw(flyingMonster.getTexture(), flyingMonster.getX(), flyingMonster.getY());
         }
 
         if (mushroomMonster.getHealth() > 0){
-            isMushroomMonsterDead = true;
             sb.draw(mushroomMonster.getTexture(), mushroomMonster.getX(), mushroomMonster.getY());
         }
 
