@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.attack.Attack;
+import com.mygdx.game.monsters.Boss;
 import com.mygdx.game.monsters.FlyingMonster;
 import com.mygdx.game.character.Character;
 import com.mygdx.game.monsters.MushroomMonster;
@@ -24,14 +25,16 @@ public class PlayStage extends Stage {
     private Character player;
     private FlyingMonster flyingMonster;
     private MushroomMonster mushroomMonster;
+    private Boss boss;
     private Attack attack;
     private boolean producedAttack;
     private boolean attackColided;
 
     public PlayStage(GameStageManager gsm){
         super(gsm);
-        player = new Character(350,150);
+        player = new Character(6350,150);
         flyingMonster = new FlyingMonster(800, 180);
+        boss = new Boss(6700, 40);
         mushroomMonster = new MushroomMonster(500, GROUND_LEVEL + 1);
         bg = new Texture("MapSample.png");
     }
@@ -133,6 +136,16 @@ public class PlayStage extends Stage {
             }
         }
 
+        //player vs boss collision
+        if (!boss.getIsDead()) {
+            if (((player.getX() <= boss.getX() + boss.getWidth() && player.getX() > boss.getX()) &&
+                    (player.getY() <= boss.getY() + boss.getHeight() && player.getY() > boss.getY())) ||
+                    (boss.getX() <= player.getX() + player.getWidth() && boss.getX() > player.getX()) &&
+                            boss.getY() <= player.getY() + player.getHeight() && boss.getY() > player.getY()) {
+                isPlayerDead = true;
+            }
+        }
+
         //attack and flyingMonster collision
         if (producedAttack && !attack.hasAttackEnded()) {
             if (((attack.getX() <= flyingMonster.getX() + flyingMonster.getWidth() && attack.getX() > flyingMonster.getX()) &&
@@ -152,6 +165,18 @@ public class PlayStage extends Stage {
                     (mushroomMonster.getX() <= attack.getX() + attack.getWidth() && mushroomMonster.getX() > attack.getX()) &&
                             mushroomMonster.getY() <= attack.getY() + attack.getHeight() && mushroomMonster.getY() > attack.getY()) {
                 mushroomMonster.respondToAttack(attack);
+                attackColided = true;
+                producedAttack = false;
+            }
+        }
+
+        //attack and boss collision
+        if (producedAttack && !attack.hasAttackEnded()) {
+            if (((attack.getX() <= boss.getX() + boss.getWidth() && attack.getX() > boss.getX()) &&
+                    (attack.getY() <= boss.getY() + boss.getHeight() && attack.getY() > boss.getY())) ||
+                    (boss.getX() <= attack.getX() + attack.getWidth() && boss.getX() > attack.getX()) &&
+                            boss.getY() <= attack.getY() + attack.getHeight() && boss.getY() > attack.getY()) {
+                boss.respondToAttack(attack);
                 attackColided = true;
                 producedAttack = false;
             }
@@ -226,6 +251,7 @@ public class PlayStage extends Stage {
 
         flyingMonster.update(deltaTime);
         mushroomMonster.update(deltaTime);
+        boss.update(deltaTime);
 
         counter++;
         previousX = player.getX();
@@ -274,6 +300,9 @@ public class PlayStage extends Stage {
             sb.draw(attack.getAttackTexture(), attack.getX(), attack.getY() + 15);
         }
 
+        if (boss.getHealth() > 0) {
+            sb.draw(boss.getTexture(), boss.getX(), boss.getY());
+        }
         sb.end();
     }
 
