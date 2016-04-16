@@ -10,6 +10,7 @@ import com.mygdx.game.character.Character;
 import com.mygdx.game.monsters.MushroomMonster;
 
 public class PlayStage extends Stage {
+    public static final  float CAM_OFFSET = 350f;
     public static final int GROUND_LEVEL = 60;
 
     private static int counter = 0;
@@ -20,14 +21,12 @@ public class PlayStage extends Stage {
 
     private Texture bg;
     private boolean isPlayerDead;
-    private boolean isFlyingMonsterDead;
-    private boolean isMushroomMonsterDead;
-    private boolean isProducedAttack;
     private Character player;
     private FlyingMonster flyingMonster;
     private MushroomMonster mushroomMonster;
     private Attack attack;
     private boolean producedAttack;
+    private boolean attackColided;
 
     public PlayStage(GameStageManager gsm){
         super(gsm);
@@ -35,7 +34,6 @@ public class PlayStage extends Stage {
         flyingMonster = new FlyingMonster(800, 180);
         mushroomMonster = new MushroomMonster(500, GROUND_LEVEL + 1);
         bg = new Texture("MapSample.png");
-        cam.setToOrtho(false, 800, 500);
     }
 
     public static int getCounter(){
@@ -56,6 +54,10 @@ public class PlayStage extends Stage {
 
     public static float getDeltaX(){
         return deltaX;
+    }
+
+    public float getCamOffset(){
+        return player.getX() - 350;
     }
 
     private void handleCollision(){
@@ -131,23 +133,25 @@ public class PlayStage extends Stage {
             }
         }
 
-        //attack vs flyingMonster collision
-        if (producedAttack && attack.getDistanceTravelled() <= 200) {
+        //attack and flyingMonster collision
+        if (producedAttack && !attack.hasAttackEnded()) {
             if (((attack.getX() <= flyingMonster.getX() + flyingMonster.getWidth() && attack.getX() > flyingMonster.getX()) &&
                     (attack.getY() <= flyingMonster.getY() + flyingMonster.getHeight() && attack.getY() > flyingMonster.getY())) ||
                     (flyingMonster.getX() <= attack.getX() + attack.getWidth() && flyingMonster.getX() > attack.getX()) &&
                     flyingMonster.getY() <= attack.getY() + attack.getHeight() && flyingMonster.getY() > attack.getY()) {
                 flyingMonster.respondToAttack(attack);
+              //  attackColided = true;
             }
         }
 
         //attack and mushroom collision
-        if (producedAttack && attack.getDistanceTravelled() <= 200) {
+        if (producedAttack && !attack.hasAttackEnded()) {
             if (((attack.getX() <= mushroomMonster.getX() + mushroomMonster.getWidth() && attack.getX() > mushroomMonster.getX()) &&
                     (attack.getY() <= mushroomMonster.getY() + mushroomMonster.getHeight() && attack.getY() > mushroomMonster.getY())) ||
                     (mushroomMonster.getX() <= attack.getX() + attack.getWidth() && mushroomMonster.getX() > attack.getX()) &&
                             mushroomMonster.getY() <= attack.getY() + attack.getHeight() && mushroomMonster.getY() > attack.getY()) {
                 mushroomMonster.respondToAttack(attack);
+              //  attackColided = true;
             }
         }
     }
@@ -155,6 +159,11 @@ public class PlayStage extends Stage {
     @Override
     protected void handleInput() {
         deltaX = 0;
+
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            gsm.set(new MenuStage(gsm));
+        }
+
         if (Gdx.input.isKeyPressed(Input.Keys.UP) ||
                 Gdx.input.isKeyPressed(Input.Keys.W)) {
              if (player.getY() == GROUND_LEVEL ||
@@ -197,6 +206,7 @@ public class PlayStage extends Stage {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             attack = new Attack(player.getX(), player.getY());
             producedAttack = true;
+           // attackColided = false;
         }
 
         previousY = player.getY();
@@ -206,6 +216,10 @@ public class PlayStage extends Stage {
     public void update(float deltaTime) {
         if (isPlayerDead){
             gameOver();
+        }
+
+        if (producedAttack){
+            attackColided = false;
         }
 
         flyingMonster.update(deltaTime);
@@ -228,7 +242,7 @@ public class PlayStage extends Stage {
         player.update(deltaTime);
 
         //star animation
-        if (producedAttack){
+        if (producedAttack && !attack.hasAttackEnded()){
             attack.update(deltaTime);
             attack.launchRightAttack();
         }
@@ -237,7 +251,7 @@ public class PlayStage extends Stage {
     }
 
     public void gameOver(){
-        gsm.set(new GameOverStage(gsm));
+        gsm.set(new GameOverStage(gsm, getCamOffset()));
     }
 
     @Override
@@ -254,7 +268,7 @@ public class PlayStage extends Stage {
             sb.draw(mushroomMonster.getTexture(), mushroomMonster.getX(), mushroomMonster.getY());
         }
 
-        if (producedAttack && attack.getDistanceTravelled() <= 200){
+        if (producedAttack && !attack.hasAttackEnded()){
             sb.draw(attack.getAttackTexture(), attack.getX(), attack.getY() + 15);
         }
 

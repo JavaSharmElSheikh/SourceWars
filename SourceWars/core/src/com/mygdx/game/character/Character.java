@@ -1,5 +1,6 @@
 package com.mygdx.game.character;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -12,6 +13,7 @@ public class Character {
     private Vector3 position;
     private Vector3 velocity;
     private boolean isDead;
+    private boolean canProduceAttack;
     private Texture texture;
     private Array<Texture> rightRunAnimation;
     private Array<Texture> rightJumpAnimation;
@@ -49,6 +51,10 @@ public class Character {
 
     public Array<Texture> getLeftJumpAnimation(){
         return leftJumpAnimation;
+    }
+
+    public boolean canProduceAttack(){
+        return canProduceAttack;
     }
 
     public void loadTextures(){
@@ -178,7 +184,7 @@ public class Character {
 
         handleCollision();
 
-        velocity.scl(1 / deltaTime);
+       velocity.scl(1 / deltaTime);
 
         //right jump
         if (PlayStage.getPreviousY() > getY() && PlayStage.getDeltaX() > 0){

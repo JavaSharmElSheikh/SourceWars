@@ -18,7 +18,6 @@ public class MenuStage extends Stage {
     protected void handleInput() {
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
            gsm.set(new PlayStage(gsm));
-           // gsm.set(new GameOverStage(gsm));
         }
     }
 
@@ -30,7 +29,7 @@ public class MenuStage extends Stage {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(startButton, (Game.WIDTH / 2 - startButton.getWidth() / 2), Game.HEIGHT / 2 - startButton.getHeight() / 2);
+        sb.draw(startButton, Game.WIDTH / 2 - startButton.getWidth() / 2, Game.HEIGHT / 2 - startButton.getHeight() / 2);
         sb.end();
     }
 

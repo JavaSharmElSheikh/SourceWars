@@ -7,10 +7,9 @@ import com.badlogic.gdx.math.Vector3;
 public abstract class Stage {
     protected OrthographicCamera cam;
     protected GameStageManager gsm;
-
     protected Stage(GameStageManager gsm){
         cam = new OrthographicCamera();
-        cam.setToOrtho(false, 240, 200);
+        cam.setToOrtho(false, 800, 500);
         this.gsm = gsm;
     }
 

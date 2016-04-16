@@ -8,16 +8,22 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class GameOverStage extends Stage {
     private SpriteBatch batch;
     private Texture texture;
+    private float distance;
 
-    public GameOverStage(GameStageManager gsm){
+    public GameOverStage(GameStageManager gsm, float distance){
         super(gsm);
         texture = new Texture("end_gameLost.png");
+        this.distance = distance;
     }
 
     @Override
     protected void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             gsm.set(new MenuStage(gsm));
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            gsm.set(new PlayStage(gsm));
         }
     }
 
@@ -29,8 +35,7 @@ public class GameOverStage extends Stage {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        //hardcoded, fix later
-        sb.draw(texture, (cam.position.x + texture.getWidth()/ 2), cam.position.y - 50);
+        sb.draw(texture, this.distance, 0);
         sb.end();
     }
 
