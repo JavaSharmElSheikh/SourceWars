@@ -140,7 +140,8 @@ public class PlayStage extends Stage {
                     (flyingMonster.getX() <= attack.getX() + attack.getWidth() && flyingMonster.getX() > attack.getX()) &&
                     flyingMonster.getY() <= attack.getY() + attack.getHeight() && flyingMonster.getY() > attack.getY()) {
                 flyingMonster.respondToAttack(attack);
-              //  attackColided = true;
+                attackColided = true;
+                producedAttack = false;
             }
         }
 
@@ -151,7 +152,8 @@ public class PlayStage extends Stage {
                     (mushroomMonster.getX() <= attack.getX() + attack.getWidth() && mushroomMonster.getX() > attack.getX()) &&
                             mushroomMonster.getY() <= attack.getY() + attack.getHeight() && mushroomMonster.getY() > attack.getY()) {
                 mushroomMonster.respondToAttack(attack);
-              //  attackColided = true;
+                attackColided = true;
+                producedAttack = false;
             }
         }
     }
@@ -203,10 +205,10 @@ public class PlayStage extends Stage {
             }
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && !producedAttack){
             attack = new Attack(player.getX(), player.getY());
             producedAttack = true;
-           // attackColided = false;
+            attackColided = false;
         }
 
         previousY = player.getY();
@@ -218,8 +220,8 @@ public class PlayStage extends Stage {
             gameOver();
         }
 
-        if (producedAttack){
-            attackColided = false;
+        if (producedAttack && !attackColided && attack.hasAttackEnded()){
+            producedAttack = false;
         }
 
         flyingMonster.update(deltaTime);
@@ -242,7 +244,7 @@ public class PlayStage extends Stage {
         player.update(deltaTime);
 
         //star animation
-        if (producedAttack && !attack.hasAttackEnded()){
+        if (producedAttack && !attack.hasAttackEnded() && !attackColided){
             attack.update(deltaTime);
             attack.launchRightAttack();
         }
@@ -268,7 +270,7 @@ public class PlayStage extends Stage {
             sb.draw(mushroomMonster.getTexture(), mushroomMonster.getX(), mushroomMonster.getY());
         }
 
-        if (producedAttack && !attack.hasAttackEnded()){
+        if (producedAttack && !attack.hasAttackEnded() && !attackColided){
             sb.draw(attack.getAttackTexture(), attack.getX(), attack.getY() + 15);
         }
 
