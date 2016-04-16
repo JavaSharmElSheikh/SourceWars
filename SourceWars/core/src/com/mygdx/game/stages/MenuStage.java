@@ -8,10 +8,17 @@ import com.mygdx.game.Game;
 
 public class MenuStage extends Stage {
     private Texture startButton;
+    private float camOffset = 0;
 
     public MenuStage(GameStageManager gsm){
         super(gsm);
         startButton = new Texture("SourceWars.png");
+    }
+
+    public MenuStage(GameStageManager gsm, float x){
+        super(gsm);
+        startButton = new Texture("SourceWars.png");
+        this.camOffset = x;
     }
 
     @Override
@@ -29,7 +36,13 @@ public class MenuStage extends Stage {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(startButton, Game.WIDTH / 2 - startButton.getWidth() / 2, Game.HEIGHT / 2 - startButton.getHeight() / 2);
+        if (camOffset == 0) {
+            sb.draw(startButton, Game.WIDTH / 2 - startButton.getWidth() / 2, Game.HEIGHT / 2 - startButton.getHeight() / 2);
+        }
+
+        if (camOffset != 0){
+            sb.draw(startButton, camOffset, Game.HEIGHT / 2 - startButton.getHeight() / 2);
+        }
         sb.end();
     }
 

@@ -19,7 +19,7 @@ public class GameOverStage extends Stage {
     @Override
     protected void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-            gsm.set(new MenuStage(gsm));
+            gsm.set(new MenuStage(gsm, distance + 100));
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){

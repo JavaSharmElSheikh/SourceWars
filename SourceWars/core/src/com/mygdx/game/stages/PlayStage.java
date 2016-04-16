@@ -163,7 +163,7 @@ public class PlayStage extends Stage {
         deltaX = 0;
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
-            gsm.set(new MenuStage(gsm));
+            gsm.set(new MenuStage(gsm, getCamOffset() + 100));
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP) ||
