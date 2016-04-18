@@ -414,6 +414,13 @@ public class PlayStage extends Stage {
                 producedAttack = false;
             }
         }
+
+
+        //Leia collision
+        if ((player.getX() >= 7300 && player.getX() < 7350) && player.getY() < GROUND_LEVEL + 70){
+            player.setPosition(7299, player.getY());
+            gameWon();
+        }
     }
 
     @Override
@@ -436,12 +443,6 @@ public class PlayStage extends Stage {
                  } else {
                      player.setTexture(player.getLeftJumpAnimation().get(0));
                  }
-            }
-
-            //Leia collision
-            if ((player.getX() >= 7300 && player.getX() < 7350) && player.getY() < GROUND_LEVEL + 70){
-                player.setPosition(7299, player.getY());
-                gameWon();
             }
         }
 
@@ -532,7 +533,7 @@ public class PlayStage extends Stage {
     }
 
     public void gameWon(){
-        gsm.set(new WinStage(gsm, getCamOffset()));
+        gsm.set(new WinStage(gsm, getCamOffset() - 100));
     }
 
     @Override

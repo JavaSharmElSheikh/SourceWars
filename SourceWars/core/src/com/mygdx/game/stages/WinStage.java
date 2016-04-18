@@ -24,7 +24,7 @@ public class WinStage extends Stage {
 
     @Override
     public void update(float dt) {
-
+        handleInput();
     }
 
     @Override
