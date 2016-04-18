@@ -8,6 +8,8 @@ import com.mygdx.game.attack.Attack;
 public class FlyingMonster extends Monster {
     private static final int MOVEMENT_SPEED = 1;
 
+    private float rightestPoint;
+    private float leftestPoint;
     private Vector3 position;
     private Vector3 velocity;
     private boolean isRightest;
@@ -26,6 +28,8 @@ public class FlyingMonster extends Monster {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         loadTextures();
+        leftestPoint = x;
+        rightestPoint = leftestPoint + 200;
     }
 
     public float getWidth(){
@@ -126,7 +130,7 @@ public class FlyingMonster extends Monster {
         counter++;
         deltaX = 0;
 
-        if (position.x == 800){
+        if (position.x == leftestPoint){
             isRightest = false;
         }
 
@@ -134,17 +138,17 @@ public class FlyingMonster extends Monster {
         position.add(velocity.x * dt, velocity.y, 0);
 
         if (!isDead) {
-            if (position.x <= 1000 && !isRightest) {
+            if (position.x <= rightestPoint && !isRightest) {
                 goRight();
                 wasLeft = true;
                 texture = rightFlyAnimation.get(counter % rightFlyAnimation.size);
             }
 
-            if (position.x == 1000) {
+            if (position.x == rightestPoint) {
                 isRightest = true;
             }
 
-            if (isRightest && position.x > 800) {
+            if (isRightest && position.x > leftestPoint) {
                 goLeft();
                 wasLeft = false;
                 texture = leftFlyAnimation.get(counter % leftFlyAnimation.size);
