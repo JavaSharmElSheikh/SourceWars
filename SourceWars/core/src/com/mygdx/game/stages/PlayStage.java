@@ -32,7 +32,7 @@ public class PlayStage extends Stage {
 
     public PlayStage(GameStageManager gsm){
         super(gsm);
-        player = new Character(6350,150);
+        player = new Character(350,150);
         flyingMonster = new FlyingMonster(800, 180);
         boss = new Boss(6700, 40);
         mushroomMonster = new MushroomMonster(500, GROUND_LEVEL + 1);
@@ -147,7 +147,8 @@ public class PlayStage extends Stage {
         }
 
         //attack and flyingMonster collision
-        if (producedAttack && !attack.hasAttackEnded()) {
+        //test out - added 1 statement - seems to be working
+        if (producedAttack && !attack.hasAttackEnded() && !flyingMonster.getIsDead()) {
             if (((attack.getX() <= flyingMonster.getX() + flyingMonster.getWidth() && attack.getX() > flyingMonster.getX()) &&
                     (attack.getY() <= flyingMonster.getY() + flyingMonster.getHeight() && attack.getY() > flyingMonster.getY())) ||
                     (flyingMonster.getX() <= attack.getX() + attack.getWidth() && flyingMonster.getX() > attack.getX()) &&
@@ -159,7 +160,7 @@ public class PlayStage extends Stage {
         }
 
         //attack and mushroom collision
-        if (producedAttack && !attack.hasAttackEnded()) {
+        if (producedAttack && !attack.hasAttackEnded() && !mushroomMonster.getIsDead()) {
             if (((attack.getX() <= mushroomMonster.getX() + mushroomMonster.getWidth() && attack.getX() > mushroomMonster.getX()) &&
                     (attack.getY() <= mushroomMonster.getY() + mushroomMonster.getHeight() && attack.getY() > mushroomMonster.getY())) ||
                     (mushroomMonster.getX() <= attack.getX() + attack.getWidth() && mushroomMonster.getX() > attack.getX()) &&
@@ -171,7 +172,7 @@ public class PlayStage extends Stage {
         }
 
         //attack and boss collision
-        if (producedAttack && !attack.hasAttackEnded()) {
+        if (producedAttack && !attack.hasAttackEnded() && !boss.getIsDead()) {
             if (((attack.getX() <= boss.getX() + boss.getWidth() && attack.getX() > boss.getX()) &&
                     (attack.getY() <= boss.getY() + boss.getHeight() && attack.getY() > boss.getY())) ||
                     (boss.getX() <= attack.getX() + attack.getWidth() && boss.getX() > attack.getX()) &&

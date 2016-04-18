@@ -196,26 +196,25 @@ public class Boss extends Monster {
         counter++;
         deltaX = 0;
 
-        if (position.x == 6700){
+        if (position.x <= 6300){
             isRightest = false;
         }
 
         velocity.scl(dt);
         position.add(velocity.x * dt, velocity.y, 0);
 
-        if (!isDead){
-            counter++;
-            if (position.x <= 7000 && !isRightest) {
+        if (!isDead) {
+            if (position.x < 6700 && !isRightest) {
                 goRight();
                 wasLeft = true;
                 texture = rightRunAnimation.get(counter % rightRunAnimation.size);
             }
 
-            if (position.x == 7000){
+            if (position.x == 6700){
                 isRightest = true;
             }
 
-            if (isRightest && position.x > 6700) {
+            if (isRightest && position.x > 6300) {
                 goLeft();
                 wasLeft = false;
                 texture = leftRunAnimation.get(counter % leftRunAnimation.size);

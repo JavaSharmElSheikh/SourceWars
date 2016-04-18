@@ -20,6 +20,7 @@ public class FlyingMonster extends Monster {
     private Array<Texture> rightFlyAnimation;
     private Array<Texture> leftFlyAnimation;
     private Array<Texture> monsterRightDieAnimation;
+    private Array<Texture> monsterLeftDieAnimation;
 
     public FlyingMonster(int x, int y){
         position = new Vector3(x, y, 0);
@@ -102,6 +103,10 @@ public class FlyingMonster extends Monster {
         for (int i = 0; i <15 ; i++) {
             monsterRightDieAnimation.add(new Texture("FinalMonsters\\monster_1_right_die1.png"));
         }
+        for (int i = 0; i <15 ; i++) {
+            monsterRightDieAnimation.add(new Texture("FinalMonsters\\monster_1_right_die1_1.png"));
+        }
+
         for (int i = 0; i < 15; i++) {
             monsterRightDieAnimation.add(new Texture("FinalMonsters\\monster_1_right_die2.png"));
         }
@@ -150,7 +155,10 @@ public class FlyingMonster extends Monster {
     }
 
     public void isDead(){
-        texture = monsterRightDieAnimation.get(counter % monsterRightDieAnimation.size);
+        for (int i = 0; i < monsterRightDieAnimation.size; i++) {
+            texture = monsterRightDieAnimation.get(i);
+        }
+
         isDead = true;
     }
 
