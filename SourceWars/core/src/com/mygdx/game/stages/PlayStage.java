@@ -30,9 +30,9 @@ public class PlayStage extends Stage {
     private FlyingMonster flyingMonster4;
     private FlyingMonster flyingMonster5;
     private MushroomMonster mushroomMonster;
+    private MushroomMonster mushroomPesho;
     private Boss boss;
     private Attack attack;
-    private MushroomMonster monsterX;
     private boolean producedAttack;
     private boolean attackColided;
 
@@ -46,8 +46,8 @@ public class PlayStage extends Stage {
         flyingMonster4 = new FlyingMonster(4100,180);
         flyingMonster5 = new FlyingMonster(5000,140);
         boss = new Boss(6700, 40);
-        monsterX = new MushroomMonster(950, GROUND_LEVEL + 1);
         mushroomMonster = new MushroomMonster(500, GROUND_LEVEL + 1);
+        mushroomPesho = new MushroomMonster(1200 , GROUND_LEVEL + 1);
         bg = new Texture("MapSample.png");
     }
 
@@ -370,7 +370,6 @@ public class PlayStage extends Stage {
         flyingMonster5.update(deltaTime);
         mushroomMonster.update(deltaTime);
         boss.update(deltaTime);
-        monsterX.update(deltaTime);
 
         counter++;
         previousX = player.getX();
@@ -434,10 +433,6 @@ public class PlayStage extends Stage {
         //mushroomMonster health
         if (mushroomMonster.getHealth() > 0){
             sb.draw(mushroomMonster.getTexture(), mushroomMonster.getX(), mushroomMonster.getY());
-        }
-
-        if (monsterX.getHealth() > 0){
-            sb.draw(monsterX.getTexture(), monsterX.getX(), monsterX.getY());
         }
 
         if (producedAttack && !attack.hasAttackEnded() && !attackColided){
