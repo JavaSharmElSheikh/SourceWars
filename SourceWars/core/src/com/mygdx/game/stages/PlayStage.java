@@ -435,6 +435,12 @@ public class PlayStage extends Stage {
                      player.setTexture(player.getLeftJumpAnimation().get(0));
                  }
             }
+
+            //Leia collision
+            if ((player.getX() >= 7300 && player.getX() < 7350) && player.getY() < GROUND_LEVEL + 70){
+                player.setPosition(7299, player.getY());
+                gameWon();
+            }
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ||

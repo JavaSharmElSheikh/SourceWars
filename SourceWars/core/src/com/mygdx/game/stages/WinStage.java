@@ -11,6 +11,7 @@ public class WinStage extends Stage {
 
     public WinStage(GameStageManager gsm, float offset){
         super(gsm);
+        texture = new Texture("end_gameWin.png");
         this.offset = offset;
     }
 
@@ -28,7 +29,9 @@ public class WinStage extends Stage {
 
     @Override
     public void render(SpriteBatch sb) {
-
+        sb.begin();
+        sb.draw(texture, this.offset, 0);
+        sb.end();
     }
 
     @Override
