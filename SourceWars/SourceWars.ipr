@@ -176,7 +176,6 @@
       <module fileurl="file://$PROJECT_DIR$/SourceWars.iml" filepath="$PROJECT_DIR$/SourceWars.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/desktop/desktop.iml" filepath="$PROJECT_DIR$/desktop/desktop.iml" />
-      <module fileurl="file://$PROJECT_DIR$/core/src/com/mygdx/game/desktop/desktop.iml" filepath="$PROJECT_DIR$/core/src/com/mygdx/game/desktop/desktop.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" default="false" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">

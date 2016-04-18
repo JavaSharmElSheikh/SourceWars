@@ -31,6 +31,10 @@ public class PlayStage extends Stage {
     private FlyingMonster flyingMonster5;
     private MushroomMonster mushroomMonster;
     private MushroomMonster mushroomPesho;
+    private MushroomMonster mushroomGoshko;
+    private MushroomMonster mushroomKichka;
+    private MushroomMonster mushroomLuna;
+    private MushroomMonster mushroomStamat;
     private Boss boss;
     private Attack attack;
     private boolean producedAttack;
@@ -48,6 +52,10 @@ public class PlayStage extends Stage {
         boss = new Boss(6700, 40);
         mushroomMonster = new MushroomMonster(500, GROUND_LEVEL + 1);
         mushroomPesho = new MushroomMonster(1200 , GROUND_LEVEL + 1);
+        mushroomGoshko = new MushroomMonster(2000 , GROUND_LEVEL +1);
+        mushroomKichka = new MushroomMonster(3410 , GROUND_LEVEL +1);
+        mushroomLuna = new MushroomMonster(4500 , GROUND_LEVEL + 1);
+        mushroomStamat = new MushroomMonster(5100 , GROUND_LEVEL + 1);
         bg = new Texture("MapSample.png");
     }
 
@@ -194,6 +202,56 @@ public class PlayStage extends Stage {
             }
         }
 
+        //player vs mushroomPesho collision
+        if (!mushroomPesho.getIsDead()) {
+            if (((player.getX() <= mushroomPesho.getX() + mushroomPesho.getWidth() && player.getX() > mushroomPesho.getX()) &&
+                    (player.getY() <= mushroomPesho.getY() + mushroomPesho.getHeight() && player.getY() > mushroomPesho.getY())) ||
+                    (mushroomPesho.getX() <= player.getX() + player.getWidth() && mushroomPesho.getX() > player.getX()) &&
+                            mushroomPesho.getY() <= player.getY() + player.getHeight() && mushroomPesho.getY() > player.getY()) {
+                isPlayerDead = true;
+            }
+        }
+
+        //player vs mushroomGoshko collision
+        if (!mushroomGoshko.getIsDead()) {
+            if (((player.getX() <= mushroomGoshko.getX() + mushroomGoshko.getWidth() && player.getX() > mushroomGoshko.getX()) &&
+                    (player.getY() <= mushroomGoshko.getY() + mushroomGoshko.getHeight() && player.getY() > mushroomGoshko.getY())) ||
+                    (mushroomGoshko.getX() <= player.getX() + player.getWidth() && mushroomGoshko.getX() > player.getX()) &&
+                            mushroomGoshko.getY() <= player.getY() + player.getHeight() && mushroomGoshko.getY() > player.getY()) {
+                isPlayerDead = true;
+            }
+        }
+
+        //player vs mushroomKichka collision
+        if (!mushroomKichka.getIsDead()) {
+            if (((player.getX() <= mushroomKichka.getX() + mushroomKichka.getWidth() && player.getX() > mushroomKichka.getX()) &&
+                    (player.getY() <= mushroomKichka.getY() + mushroomKichka.getHeight() && player.getY() > mushroomKichka.getY())) ||
+                    (mushroomKichka.getX() <= player.getX() + player.getWidth() && mushroomKichka.getX() > player.getX()) &&
+                            mushroomKichka.getY() <= player.getY() + player.getHeight() && mushroomKichka.getY() > player.getY()) {
+                isPlayerDead = true;
+            }
+        }
+
+        //player vs mushroomLuna collision
+        if (!mushroomLuna.getIsDead()) {
+            if (((player.getX() <= mushroomLuna.getX() + mushroomLuna.getWidth() && player.getX() > mushroomLuna.getX()) &&
+                    (player.getY() <= mushroomLuna.getY() + mushroomLuna.getHeight() && player.getY() > mushroomLuna.getY())) ||
+                    (mushroomLuna.getX() <= player.getX() + player.getWidth() && mushroomLuna.getX() > player.getX()) &&
+                            mushroomLuna.getY() <= player.getY() + player.getHeight() && mushroomLuna.getY() > player.getY()) {
+                isPlayerDead = true;
+            }
+        }
+
+        //player vs mushroomStamat collision
+        if (!mushroomStamat.getIsDead()) {
+            if (((player.getX() <= mushroomStamat.getX() + mushroomStamat.getWidth() && player.getX() > mushroomStamat.getX()) &&
+                    (player.getY() <= mushroomStamat.getY() + mushroomStamat.getHeight() && player.getY() > mushroomStamat.getY())) ||
+                    (mushroomStamat.getX() <= player.getX() + player.getWidth() && mushroomStamat.getX() > player.getX()) &&
+                            mushroomStamat.getY() <= player.getY() + player.getHeight() && mushroomStamat.getY() > player.getY()) {
+                isPlayerDead = true;
+            }
+        }
+
         //player vs boss collision
         if (!boss.getIsDead()) {
             if (((player.getX() <= boss.getX() + boss.getWidth() && player.getX() > boss.getX()) &&
@@ -278,6 +336,66 @@ public class PlayStage extends Stage {
                     (mushroomMonster.getX() <= attack.getX() + attack.getWidth() && mushroomMonster.getX() > attack.getX()) &&
                             mushroomMonster.getY() <= attack.getY() + attack.getHeight() && mushroomMonster.getY() > attack.getY()) {
                 mushroomMonster.respondToAttack(attack);
+                attackColided = true;
+                producedAttack = false;
+            }
+        }
+
+        //attack and mushroomPesho collision
+        if (producedAttack && !attack.hasAttackEnded() && !mushroomPesho.getIsDead()) {
+            if (((attack.getX() <= mushroomPesho.getX() + mushroomPesho.getWidth() && attack.getX() > mushroomPesho.getX()) &&
+                    (attack.getY() <= mushroomPesho.getY() + mushroomPesho.getHeight() && attack.getY() > mushroomPesho.getY())) ||
+                    (mushroomPesho.getX() <= attack.getX() + attack.getWidth() && mushroomPesho.getX() > attack.getX()) &&
+                            mushroomPesho.getY() <= attack.getY() + attack.getHeight() && mushroomPesho.getY() > attack.getY()) {
+                mushroomPesho.respondToAttack(attack);
+                attackColided = true;
+                producedAttack = false;
+            }
+        }
+
+        //attack and mushroomGoshko collision
+        if (producedAttack && !attack.hasAttackEnded() && !mushroomGoshko.getIsDead()) {
+            if (((attack.getX() <= mushroomGoshko.getX() + mushroomGoshko.getWidth() && attack.getX() > mushroomGoshko.getX()) &&
+                    (attack.getY() <= mushroomGoshko.getY() + mushroomGoshko.getHeight() && attack.getY() > mushroomGoshko.getY())) ||
+                    (mushroomGoshko.getX() <= attack.getX() + attack.getWidth() && mushroomGoshko.getX() > attack.getX()) &&
+                            mushroomGoshko.getY() <= attack.getY() + attack.getHeight() && mushroomGoshko.getY() > attack.getY()) {
+                mushroomGoshko.respondToAttack(attack);
+                attackColided = true;
+                producedAttack = false;
+            }
+        }
+
+        //attack and mushroomKichka collision
+        if (producedAttack && !attack.hasAttackEnded() && !mushroomKichka.getIsDead()) {
+            if (((attack.getX() <= mushroomKichka.getX() + mushroomKichka.getWidth() && attack.getX() > mushroomKichka.getX()) &&
+                    (attack.getY() <= mushroomKichka.getY() + mushroomKichka.getHeight() && attack.getY() > mushroomKichka.getY())) ||
+                    (mushroomKichka.getX() <= attack.getX() + attack.getWidth() && mushroomKichka.getX() > attack.getX()) &&
+                            mushroomKichka.getY() <= attack.getY() + attack.getHeight() && mushroomKichka.getY() > attack.getY()) {
+                mushroomKichka.respondToAttack(attack);
+                attackColided = true;
+                producedAttack = false;
+            }
+        }
+
+        //attack and mushroomLuna collision
+        if (producedAttack && !attack.hasAttackEnded() && !mushroomLuna.getIsDead()) {
+            if (((attack.getX() <= mushroomLuna.getX() + mushroomLuna.getWidth() && attack.getX() > mushroomLuna.getX()) &&
+                    (attack.getY() <= mushroomLuna.getY() + mushroomLuna.getHeight() && attack.getY() > mushroomLuna.getY())) ||
+                    (mushroomLuna.getX() <= attack.getX() + attack.getWidth() && mushroomLuna.getX() > attack.getX()) &&
+                            mushroomLuna.getY() <= attack.getY() + attack.getHeight() && mushroomLuna.getY() > attack.getY()) {
+                mushroomLuna.respondToAttack(attack);
+                attackColided = true;
+                producedAttack = false;
+            }
+        }
+
+        //attack and mushroomStamat collision
+        if (producedAttack && !attack.hasAttackEnded() && !mushroomStamat.getIsDead()) {
+            if (((attack.getX() <= mushroomStamat.getX() + mushroomStamat.getWidth() && attack.getX() > mushroomStamat.getX()) &&
+                    (attack.getY() <= mushroomStamat.getY() + mushroomStamat.getHeight() && attack.getY() > mushroomStamat.getY())) ||
+                    (mushroomStamat.getX() <= attack.getX() + attack.getWidth() && mushroomStamat.getX() > attack.getX()) &&
+                            mushroomStamat.getY() <= attack.getY() + attack.getHeight() && mushroomStamat.getY() > attack.getY()) {
+                mushroomStamat.respondToAttack(attack);
                 attackColided = true;
                 producedAttack = false;
             }
@@ -369,6 +487,11 @@ public class PlayStage extends Stage {
         flyingMonster4.update(deltaTime);
         flyingMonster5.update(deltaTime);
         mushroomMonster.update(deltaTime);
+        mushroomPesho.update(deltaTime);
+        mushroomGoshko.update(deltaTime);
+        mushroomKichka.update(deltaTime);
+        mushroomLuna.update(deltaTime);
+        mushroomStamat.update(deltaTime);
         boss.update(deltaTime);
 
         counter++;
@@ -430,9 +553,30 @@ public class PlayStage extends Stage {
         if (flyingMonster5.getHealth() > 0) {
             sb.draw(flyingMonster5.getTexture(), flyingMonster5.getX(), flyingMonster5.getY());
         }
+
         //mushroomMonster health
         if (mushroomMonster.getHealth() > 0){
             sb.draw(mushroomMonster.getTexture(), mushroomMonster.getX(), mushroomMonster.getY());
+        }
+
+        if (mushroomPesho.getHealth() > 0){
+            sb.draw(mushroomPesho.getTexture(), mushroomPesho.getX(), mushroomPesho.getY());
+        }
+
+        if (mushroomGoshko.getHealth() > 0){
+            sb.draw(mushroomGoshko.getTexture(), mushroomGoshko.getX(), mushroomGoshko.getY());
+        }
+
+        if (mushroomKichka.getHealth() > 0){
+            sb.draw(mushroomKichka.getTexture(), mushroomKichka.getX(), mushroomKichka.getY());
+        }
+
+        if (mushroomLuna.getHealth() > 0){
+            sb.draw(mushroomLuna.getTexture(), mushroomLuna.getX(), mushroomLuna.getY());
+        }
+
+        if (mushroomStamat.getHealth() > 0){
+            sb.draw(mushroomStamat.getTexture(), mushroomStamat.getX(), mushroomStamat.getY());
         }
 
         if (producedAttack && !attack.hasAttackEnded() && !attackColided){
@@ -454,6 +598,11 @@ public class PlayStage extends Stage {
         flyingMonster4.dispose();
         flyingMonster5.dispose();
         mushroomMonster.dispose();
+        mushroomPesho.dispose();
+        mushroomGoshko.dispose();
+        mushroomKichka.dispose();
+        mushroomLuna.dispose();
+        mushroomStamat.dispose();
         player.dispose();
         bg.dispose();
     }
