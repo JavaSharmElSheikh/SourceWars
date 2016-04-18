@@ -27,6 +27,7 @@ public class PlayStage extends Stage {
     private MushroomMonster mushroomMonster;
     private Boss boss;
     private Attack attack;
+    private MushroomMonster monsterX;
     private boolean producedAttack;
     private boolean attackColided;
 
@@ -35,6 +36,7 @@ public class PlayStage extends Stage {
         player = new Character(350,150);
         flyingMonster = new FlyingMonster(800, 180);
         boss = new Boss(6700, 40);
+        monsterX = new MushroomMonster(950, GROUND_LEVEL + 1);
         mushroomMonster = new MushroomMonster(500, GROUND_LEVEL + 1);
         bg = new Texture("MapSample.png");
     }
@@ -202,7 +204,7 @@ public class PlayStage extends Stage {
                  if (wasRight){
                     player.setTexture(player.getRightJumpAnimation().get(0));
                  } else {
-                     player.setTexture(player.getRightJumpAnimation().get(0));
+                     player.setTexture(player.getLeftJumpAnimation().get(0));
                  }
             }
         }
@@ -253,6 +255,7 @@ public class PlayStage extends Stage {
         flyingMonster.update(deltaTime);
         mushroomMonster.update(deltaTime);
         boss.update(deltaTime);
+        monsterX.update(deltaTime);
 
         counter++;
         previousX = player.getX();
@@ -283,6 +286,10 @@ public class PlayStage extends Stage {
         gsm.set(new GameOverStage(gsm, getCamOffset()));
     }
 
+    public void gameWon(){
+        gsm.set(new WinStage(gsm, getCamOffset()));
+    }
+
     @Override
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
@@ -295,6 +302,10 @@ public class PlayStage extends Stage {
 
         if (mushroomMonster.getHealth() > 0){
             sb.draw(mushroomMonster.getTexture(), mushroomMonster.getX(), mushroomMonster.getY());
+        }
+
+        if (monsterX.getHealth() > 0){
+            sb.draw(monsterX.getTexture(), monsterX.getX(), monsterX.getY());
         }
 
         if (producedAttack && !attack.hasAttackEnded() && !attackColided){

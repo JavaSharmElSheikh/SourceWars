@@ -43,6 +43,7 @@ public class MenuStage extends Stage {
         if (camOffset != 0){
             sb.draw(startButton, camOffset, Game.HEIGHT / 2 - startButton.getHeight() / 2);
         }
+
         sb.end();
     }
 
