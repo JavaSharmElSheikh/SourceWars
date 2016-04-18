@@ -54,7 +54,7 @@ public class PlayStage extends Stage {
         mushroomPesho = new MushroomMonster(1200 , GROUND_LEVEL + 1);
         mushroomGoshko = new MushroomMonster(2000 , GROUND_LEVEL +1);
         mushroomKichka = new MushroomMonster(3410 , GROUND_LEVEL +1);
-        mushroomLuna = new MushroomMonster(4500 , GROUND_LEVEL + 1);
+        mushroomLuna = new MushroomMonster(4300 , GROUND_LEVEL + 1);
         mushroomStamat = new MushroomMonster(5100 , GROUND_LEVEL + 1);
         bg = new Texture("MapSample.png");
     }
