@@ -147,27 +147,27 @@ public class Character {
         }
 
         //first tube top collision
-        if ((position.x >= 760 && position.x < 890) && position.y < 160){
+        if ((position.x >= 770 && position.x < 875) && position.y < 160){
             position.y = 160;
         }
 
         //second tube top collision
-        if ((position.x >= 1430 && position.x < 1560) && position.y < 160){
+        if ((position.x >= 1450 && position.x < 1550) && position.y < 160){
             position.y = 160;
         }
 
         //third tube top collision
-        if ((getX() >= 2170 && getX() < 2300) && position.y < 125){
+        if ((getX() >= 2170 && getX() < 2280) && position.y < 125){
             position.y = 125;
         }
 
         //fourth tube top collision
-        if ((getX() >= 2325 && getX() < 2455) &&  position.y < 125){
+        if ((getX() >= 2335 && getX() < 2440) &&  position.y < 125){
             position.y = 125;
         }
 
         //fifth tube top collision
-        if ((getX() >= 2750 && getX() < 2880) &&  position.y < 190){
+        if ((getX() >= 2755 && getX() < 2865) &&  position.y < 190){
             position.y = 190;
         }
     }
