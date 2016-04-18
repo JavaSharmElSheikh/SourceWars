@@ -11,6 +11,8 @@ import com.mygdx.game.character.Character;
 import com.mygdx.game.monsters.MushroomMonster;
 
 public class PlayStage extends Stage {
+    public static final float PLAYER_RENDER_RANGE = 1000;
+
     public static final  float CAM_OFFSET = 350f;
     public static final int GROUND_LEVEL = 60;
 
@@ -540,58 +542,25 @@ public class PlayStage extends Stage {
         sb.draw(bg, 0, 0);
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y);
 
-        //flyingMonster health
-        if (flyingMonster.getHealth() > 0) {
-            sb.draw(flyingMonster.getTexture(), flyingMonster.getX(), flyingMonster.getY());
-        }
-        if (flyingMonster1.getHealth() > 0) {
-            sb.draw(flyingMonster1.getTexture(), flyingMonster1.getX(), flyingMonster1.getY());
-        }
-        if (flyingMonster2.getHealth() > 0) {
-            sb.draw(flyingMonster2.getTexture(), flyingMonster2.getX(), flyingMonster2.getY());
-        }
-        if (flyingMonster3.getHealth() > 0) {
-            sb.draw(flyingMonster3.getTexture(), flyingMonster3.getX(), flyingMonster3.getY());
-        }
-        if (flyingMonster4.getHealth() > 0) {
-            sb.draw(flyingMonster4.getTexture(), flyingMonster4.getX(), flyingMonster4.getY());
-        }
-        if (flyingMonster5.getHealth() > 0) {
-            sb.draw(flyingMonster5.getTexture(), flyingMonster5.getX(), flyingMonster5.getY());
-        }
+        flyingMonster.render(sb);
+        flyingMonster1.render(sb);
+        flyingMonster2.render(sb);
+        flyingMonster3.render(sb);
+        flyingMonster4.render(sb);
+        flyingMonster5.render(sb);
 
-        //mushroomMonster health
-        if (mushroomMonster.getHealth() > 0){
-            sb.draw(mushroomMonster.getTexture(), mushroomMonster.getX(), mushroomMonster.getY());
-        }
-
-        if (mushroomPesho.getHealth() > 0){
-            sb.draw(mushroomPesho.getTexture(), mushroomPesho.getX(), mushroomPesho.getY());
-        }
-
-        if (mushroomGoshko.getHealth() > 0){
-            sb.draw(mushroomGoshko.getTexture(), mushroomGoshko.getX(), mushroomGoshko.getY());
-        }
-
-        if (mushroomKichka.getHealth() > 0){
-            sb.draw(mushroomKichka.getTexture(), mushroomKichka.getX(), mushroomKichka.getY());
-        }
-
-        if (mushroomLuna.getHealth() > 0){
-            sb.draw(mushroomLuna.getTexture(), mushroomLuna.getX(), mushroomLuna.getY());
-        }
-
-        if (mushroomStamat.getHealth() > 0){
-            sb.draw(mushroomStamat.getTexture(), mushroomStamat.getX(), mushroomStamat.getY());
-        }
+        mushroomMonster.render(sb);
+        mushroomGoshko.render(sb);
+        mushroomKichka.render(sb);
+        mushroomLuna.render(sb);
+        mushroomStamat.render(sb);
+        mushroomPesho.render(sb);
 
         if (producedAttack && !attack.hasAttackEnded() && !attackColided){
             sb.draw(attack.getAttackTexture(), attack.getX(), attack.getY() + 15);
         }
 
-        if (boss.getHealth() > 0) {
-            sb.draw(boss.getTexture(), boss.getX(), boss.getY());
-        }
+        boss.render(sb);
         sb.end();
     }
 

@@ -1,6 +1,7 @@
 package com.mygdx.game.monsters;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.attack.Attack;
 
 public abstract class Monster {
@@ -21,6 +22,8 @@ public abstract class Monster {
     public abstract void loadTextures();
 
     public abstract void update(float dt);
+
+    public abstract void render(SpriteBatch sb);
 
     public abstract void dispose();
 }

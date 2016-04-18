@@ -1,9 +1,11 @@
 package com.mygdx.game.monsters;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.attack.Attack;
+import com.mygdx.game.stages.PlayStage;
 
 public class MushroomMonster extends Monster {
     private Vector3 position;
@@ -100,6 +102,13 @@ public class MushroomMonster extends Monster {
         counter++;
         if (!isDead){
             texture = staticAnimation.get(counter % staticAnimation.size);
+        }
+    }
+
+    @Override
+    public void render(SpriteBatch sb){
+        if (getHealth() > 0){
+            sb.draw(getTexture(), getX(), getY());
         }
     }
 

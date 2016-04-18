@@ -1,6 +1,7 @@
 package com.mygdx.game.monsters;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.attack.Attack;
@@ -222,6 +223,13 @@ public class Boss extends Monster {
         }
 
         velocity.scl(1 / dt);
+    }
+
+    @Override
+    public void render(SpriteBatch sb){
+        if (getHealth() > 0) {
+            sb.draw(getTexture(), getX(), getY());
+        }
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.mygdx.game.monsters;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.attack.Attack;
+import com.mygdx.game.stages.PlayStage;
 
 public class FlyingMonster extends Monster {
     private static final int MOVEMENT_SPEED = 1;
@@ -176,6 +178,12 @@ public class FlyingMonster extends Monster {
 
     public void goLeft(){
         position.x -= MOVEMENT_SPEED;
+    }
+
+    public void render(SpriteBatch sb){
+        if (getHealth() > 0) {
+            sb.draw(getTexture(), getX(), getY());
+        }
     }
 
     public void dispose(){
