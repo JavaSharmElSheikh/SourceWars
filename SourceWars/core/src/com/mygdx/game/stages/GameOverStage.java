@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameOverStage extends Stage {
-    private SpriteBatch batch;
     private Texture texture;
     private float distance;
 

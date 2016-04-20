@@ -16,11 +16,11 @@ public class GameStageManager {
     }
 
     public void pop(){
-        stages.pop();
+        stages.pop().dispose();
     }
 
     public void set(Stage stage){
-        stages.pop();
+        stages.pop().dispose();
         stages.push(stage);
     }
 

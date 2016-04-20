@@ -11,8 +11,6 @@ import com.mygdx.game.character.Character;
 import com.mygdx.game.monsters.MushroomMonster;
 
 public class PlayStage extends Stage {
-    public static final float PLAYER_RENDER_RANGE = 1000;
-
     public static final  float CAM_OFFSET = 350f;
     public static final int GROUND_LEVEL = 60;
 
@@ -447,7 +445,7 @@ public class PlayStage extends Stage {
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ||
-                Gdx.input.isKeyPressed(Input.Keys.D)) {
+                Gdx.input.isKeyPressed(Input.Keys.D) && player.getRightJumpAnimation().size != 0) {
             player.goRight();
             deltaX++;
             wasRight = true;
@@ -459,7 +457,7 @@ public class PlayStage extends Stage {
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) ||
-                Gdx.input.isKeyPressed(Input.Keys.A)) {
+                Gdx.input.isKeyPressed(Input.Keys.A) && player.getRightJumpAnimation().size != 0) {
             player.goLeft();
             wasRight = false;
             deltaX--;
@@ -489,19 +487,7 @@ public class PlayStage extends Stage {
             producedAttack = false;
         }
 
-        flyingMonster.update(deltaTime);
-        flyingMonster1.update(deltaTime);
-        flyingMonster2.update(deltaTime);
-        flyingMonster3.update(deltaTime);
-        flyingMonster4.update(deltaTime);
-        flyingMonster5.update(deltaTime);
-        mushroomMonster.update(deltaTime);
-        mushroomPesho.update(deltaTime);
-        mushroomGoshko.update(deltaTime);
-        mushroomKichka.update(deltaTime);
-        mushroomLuna.update(deltaTime);
-        mushroomStamat.update(deltaTime);
-        boss.update(deltaTime);
+
 
         counter++;
         previousX = player.getX();
@@ -517,8 +503,22 @@ public class PlayStage extends Stage {
             cam.position.x = player.getPosition().x + 50;
         }
 
-        player.update(deltaTime);
-
+        if (!isPlayerDead) {
+            player.update(deltaTime);
+            flyingMonster.update(deltaTime);
+            flyingMonster1.update(deltaTime);
+            flyingMonster2.update(deltaTime);
+            flyingMonster3.update(deltaTime);
+            flyingMonster4.update(deltaTime);
+            flyingMonster5.update(deltaTime);
+            mushroomMonster.update(deltaTime);
+            mushroomPesho.update(deltaTime);
+            mushroomGoshko.update(deltaTime);
+            mushroomKichka.update(deltaTime);
+            mushroomLuna.update(deltaTime);
+            mushroomStamat.update(deltaTime);
+            boss.update(deltaTime);
+        }
         //star animation
         if (producedAttack && !attack.hasAttackEnded() && !attackColided){
             attack.update(deltaTime);
@@ -580,6 +580,7 @@ public class PlayStage extends Stage {
         mushroomLuna.dispose();
         mushroomStamat.dispose();
         player.dispose();
+        boss.dispose();
         bg.dispose();
     }
 }

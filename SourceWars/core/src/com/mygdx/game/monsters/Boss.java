@@ -19,13 +19,8 @@ public class Boss extends Monster {
     private boolean isRightest;
     private int counter = 0;
     private Array<Texture> rightRunAnimation;
-    private Array<Texture> rightStayAnimation;
-    private Array<Texture> rightFallAnimation;
-    private Texture rightJumpAnimation;
     private Array<Texture> leftRunAnimation;
-    private Array<Texture> leftStayAnimation;
-    private Array<Texture> leftFallAnimation;
-    private Texture leftJumpAnimation;
+
 
     public Boss(int x, int y){
         position = new Vector3(x, y, 0);
@@ -62,16 +57,8 @@ public class Boss extends Monster {
         return rightRunAnimation;
     }
 
-    public Texture getRightJumpTexture(){
-        return rightJumpAnimation;
-    }
-
     public Array<Texture> getLeftRunAnimation(){
         return leftRunAnimation;
-    }
-
-    public Texture getLeftJumpAnimation(){
-        return leftJumpAnimation;
     }
 
     public boolean getIsDead(){
@@ -118,27 +105,6 @@ public class Boss extends Monster {
             rightRunAnimation.add(new Texture("Chicken\\4.png"));
         }
 
-        //right stay
-        rightStayAnimation = new Array<Texture>();
-        for (int i = 0; i < 10; i++) {
-            rightStayAnimation.add(new Texture("Chicken\\10.png"));
-        }
-        for (int i = 0; i < 10; i++) {
-            rightStayAnimation.add(new Texture("Chicken\\11.png"));
-        }
-
-        //right fall
-        rightFallAnimation = new Array<Texture>();
-        for (int i = 0; i < 15; i++) {
-            rightFallAnimation.add(new Texture("Chicken\\8.png"));
-        }
-        for (int i = 0; i < 15; i++) {
-            rightFallAnimation.add(new Texture("Chicken\\9.png"));
-        }
-
-        //right jump
-        rightJumpAnimation = new Texture("Chicken\\7.png");
-
         //left run
         leftRunAnimation = new Array<Texture>();
         for (int i = 0; i < 15; i++) {
@@ -160,28 +126,8 @@ public class Boss extends Monster {
             leftRunAnimation.add(new Texture("Chicken\\4_left.png"));
         }
 
-        //left stay
-        leftStayAnimation = new Array<Texture>();
-        for (int i = 0; i < 10; i++) {
-            leftStayAnimation.add(new Texture("Chicken\\10_left.png"));
-        }
-        for (int i = 0; i < 10; i++) {
-            leftStayAnimation.add(new Texture("Chicken\\11_left.png"));
-        }
 
-        //left fall
-        leftFallAnimation = new Array<Texture>();
-        for (int i = 0; i < 10; i++) {
-            leftFallAnimation.add(new Texture("Chicken\\8_left.png"));
-        }
-        for (int i = 0; i < 10; i++) {
-            leftFallAnimation.add(new Texture("Chicken\\9_left.png"));
-        }
-
-        //left jump
-        rightJumpAnimation = new Texture("Chicken\\7_left.png");
-
-        this.texture = rightStayAnimation.get(0);
+        this.texture = rightRunAnimation.get(0);
     }
 
     public void goRight(){

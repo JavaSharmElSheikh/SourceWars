@@ -14,7 +14,6 @@ public class MushroomMonster extends Monster {
     private int counter = 0;
     private int health = 2;
     private Array<Texture> staticAnimation;
-    private Array<Texture> dieAnimation;
 
     public MushroomMonster(int x, int y){
         position = new Vector3(x, y, 0);
@@ -56,7 +55,6 @@ public class MushroomMonster extends Monster {
 
     @Override
     public void isDead() {
-        texture = dieAnimation.get(counter % dieAnimation.size);
         isDead = true;
     }
 
@@ -75,18 +73,6 @@ public class MushroomMonster extends Monster {
             staticAnimation.add(new Texture("FinalMonsters\\monster_2_static_3.png"));
         }
 
-        //die animation initialize
-        dieAnimation = new Array<Texture>();
-        for (int i = 0; i < 15; i++) {
-            dieAnimation.add(new Texture("FinalMonsters\\monster_2_die_1.png"));
-        }
-        for (int i = 0; i < 15; i++) {
-            dieAnimation.add(new Texture("FinalMonsters\\monster_2_die_2.png"));
-        }
-        for (int i = 0; i < 15; i++) {
-            dieAnimation.add(new Texture("FinalMonsters\\monster_2_die_3.png"));
-        }
-
         texture = new Texture("FinalMonsters\\monster_2_static_1.png");
     }
 
@@ -100,7 +86,7 @@ public class MushroomMonster extends Monster {
             isDead();
         }
         counter++;
-        if (!isDead){
+        if (!isDead && staticAnimation.size != 0){
             texture = staticAnimation.get(counter % staticAnimation.size);
         }
     }
@@ -112,8 +98,13 @@ public class MushroomMonster extends Monster {
         }
     }
 
+    public void clear(){
+        staticAnimation.clear();
+    }
+
     @Override
     public void dispose() {
         this.texture.dispose();
+        clear();
     }
 }

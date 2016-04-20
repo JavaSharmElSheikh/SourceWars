@@ -13,7 +13,6 @@ public class Character {
     private Vector3 position;
     private Vector3 velocity;
     private boolean isDead;
-    private boolean canProduceAttack;
     private Texture texture;
     private Array<Texture> rightRunAnimation;
     private Array<Texture> rightJumpAnimation;
@@ -21,6 +20,7 @@ public class Character {
     private Array<Texture> leftRunAnimation;
     private Array<Texture> leftJumpAnimation;
     private Array<Texture> leftStayAnimation;
+
 
     public Character(int x, int y){
         position = new Vector3(x, y, 0);
@@ -51,10 +51,6 @@ public class Character {
 
     public Array<Texture> getLeftJumpAnimation(){
         return leftJumpAnimation;
-    }
-
-    public boolean canProduceAttack(){
-        return canProduceAttack;
     }
 
     public void loadTextures(){
@@ -172,11 +168,11 @@ public class Character {
         }
     }
 
-    public void update(float deltaTime){
-
-        if (position.y > 0) {
-            velocity.add(0, GRAVITY, 0);
-        }
+    public void update(float deltaTime) {
+        if (rightJumpAnimation.size != 0){
+            if (position.y > 0) {
+                velocity.add(0, GRAVITY, 0);
+            }
 
         velocity.scl(deltaTime);
 
@@ -184,36 +180,37 @@ public class Character {
 
         handleCollision();
 
-       velocity.scl(1 / deltaTime);
+        velocity.scl(1 / deltaTime);
 
         //right jump
-        if (PlayStage.getPreviousY() > getY() && PlayStage.getDeltaX() > 0){
+        if (PlayStage.getPreviousY() > getY() && PlayStage.getDeltaX() > 0 && !isDead) {
             texture = new Texture("FinalCharacter\\right_jump_2.png");
         }
 
         //left jump
-        if (PlayStage.getPreviousY() > getY() && PlayStage.getDeltaX() < 0){
+        if (PlayStage.getPreviousY() > getY() && PlayStage.getDeltaX() < 0 && !isDead) {
             texture = new Texture("FinalCharacter\\left_jump_2.png");
         }
 
         //right fall
-        if (PlayStage.getPreviousY() > getY() && PlayStage.wasRight()){
+        if (PlayStage.getPreviousY() > getY() && PlayStage.wasRight() && !isDead) {
             texture = new Texture("FinalCharacter\\right_jump_2.png");
         }
 
         //left fall
-        if (PlayStage.getPreviousY() > getY() && !PlayStage.wasRight()){
+        if (PlayStage.getPreviousY() > getY() && !PlayStage.wasRight() && !isDead) {
             texture = new Texture("FinalCharacter\\left_jump_2.png");
         }
 
         //right stay
-        if (PlayStage.getPreviousX() == getX() && PlayStage.getPreviousY() == getY()){
+        if (PlayStage.getPreviousX() == getX() && PlayStage.getPreviousY() == getY() && !isDead) {
             texture = rightStayAnimation.get(PlayStage.getCounter() % rightStayAnimation.size);
         }
 
         //left stay
-        if (!PlayStage.wasRight() && (PlayStage.getPreviousX() == getX() && PlayStage.getPreviousY() == getY())){
+        if (!PlayStage.wasRight() && (PlayStage.getPreviousX() == getX() && PlayStage.getPreviousY() == getY()) && !isDead) {
             texture = leftStayAnimation.get(PlayStage.getCounter() % leftStayAnimation.size);
+        }
         }
     }
 
@@ -261,7 +258,17 @@ public class Character {
         this.isDead = true;
     }
 
+    public void clear(){
+        rightJumpAnimation.clear();
+        rightRunAnimation.clear();
+        rightStayAnimation.clear();
+        leftRunAnimation.clear();
+        leftStayAnimation.clear();
+        leftJumpAnimation.clear();
+    }
+
     public void dispose(){
         texture.dispose();
+        clear();
     }
 }

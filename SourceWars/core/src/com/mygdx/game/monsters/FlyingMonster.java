@@ -23,8 +23,6 @@ public class FlyingMonster extends Monster {
     private int health = 3;
     private Array<Texture> rightFlyAnimation;
     private Array<Texture> leftFlyAnimation;
-    private Array<Texture> monsterRightDieAnimation;
-    private Array<Texture> monsterLeftDieAnimation;
 
     public FlyingMonster(int x, int y){
         position = new Vector3(x, y, 0);
@@ -104,19 +102,6 @@ public class FlyingMonster extends Monster {
             leftFlyAnimation.add(new Texture("FinalMonsters\\monster_1_left_1.png"));
         }
 
-        //monster right die animation
-        monsterRightDieAnimation = new Array<Texture>();
-        for (int i = 0; i <15 ; i++) {
-            monsterRightDieAnimation.add(new Texture("FinalMonsters\\monster_1_right_die1.png"));
-        }
-        for (int i = 0; i <15 ; i++) {
-            monsterRightDieAnimation.add(new Texture("FinalMonsters\\monster_1_right_die1_1.png"));
-        }
-
-        for (int i = 0; i < 15; i++) {
-            monsterRightDieAnimation.add(new Texture("FinalMonsters\\monster_1_right_die2.png"));
-        }
-
         texture = new Texture("FinalMonsters\\monster_1_right_1.png");
     }
 
@@ -139,7 +124,7 @@ public class FlyingMonster extends Monster {
         velocity.scl(dt);
         position.add(velocity.x * dt, velocity.y, 0);
 
-        if (!isDead) {
+        if (!isDead && rightFlyAnimation.size != 0 && leftFlyAnimation.size != 0) {
             if (position.x <= rightestPoint && !isRightest) {
                 goRight();
                 wasLeft = true;
@@ -161,10 +146,6 @@ public class FlyingMonster extends Monster {
     }
 
     public void isDead(){
-        for (int i = 0; i < monsterRightDieAnimation.size; i++) {
-            texture = monsterRightDieAnimation.get(i);
-        }
-
         isDead = true;
     }
 
@@ -184,6 +165,11 @@ public class FlyingMonster extends Monster {
         if (getHealth() > 0) {
             sb.draw(getTexture(), getX(), getY());
         }
+    }
+
+    public void clear(){
+        rightFlyAnimation.clear();
+        leftFlyAnimation.clear();
     }
 
     public void dispose(){
