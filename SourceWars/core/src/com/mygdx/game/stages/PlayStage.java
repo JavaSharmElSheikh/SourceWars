@@ -39,6 +39,7 @@ public class PlayStage extends Stage {
     private Attack attack;
     private boolean producedAttack;
     private boolean attackColided;
+    private boolean terrainCollide;
 
     public PlayStage(GameStageManager gsm){
         super(gsm);
@@ -102,6 +103,13 @@ public class PlayStage extends Stage {
             player.setPosition(896, player.getY());
         }
 
+        //first pipe and attack collision
+        if (producedAttack) {
+            if ((attack.getX() >= 755 + player.getWidth()  - attack.getWidth() && attack.getX() < 805 + player.getWidth()  - attack.getWidth()) && attack.getY() < GROUND_LEVEL + 70) {
+                terrainCollide = true;
+            }
+        }
+
         //second pipe
         if ((player.getX() >= 1425 && player.getX() < 1475) && player.getY() < GROUND_LEVEL + 70){
             player.setPosition(1424, player.getY());
@@ -110,12 +118,26 @@ public class PlayStage extends Stage {
             player.setPosition(1566, player.getY());
         }
 
+        //second pipe and attack collision
+        if (producedAttack) {
+            if ((attack.getX() >= 1425 + player.getWidth() - attack.getWidth() && attack.getX() < 1475 + player.getWidth()  - attack.getWidth()) && attack.getY() < GROUND_LEVEL + 70) {
+                terrainCollide = true;
+            }
+        }
+
         //third pipe
         if ((player.getX() >= 2165 && player.getX() < 2215) && player.getY() < GROUND_LEVEL + 30){
             player.setPosition(2164, player.getY());
         }
         if ((player.getX() >= 2255 && player.getX() < 2305) && player.getY() < GROUND_LEVEL + 30){
             player.setPosition(2306, player.getY());
+        }
+
+        //third pipe and attack collision
+        if (producedAttack) {
+            if ((attack.getX() >= 2165 + player.getWidth() - attack.getWidth() && attack.getX() < 2215 + player.getWidth()  - attack.getWidth()) && attack.getY() < GROUND_LEVEL + 70) {
+                terrainCollide = true;
+            }
         }
 
         //fourth pipe
@@ -127,6 +149,13 @@ public class PlayStage extends Stage {
             player.setPosition(2461, player.getY());
         }
 
+        //fourth pipe and attack collision
+        if (producedAttack) {
+            if ((attack.getX() >= 2320 + player.getWidth() - attack.getWidth() && attack.getX() < 2370 + player.getWidth()  - attack.getWidth()) && attack.getY() < GROUND_LEVEL + 70) {
+                terrainCollide = true;
+            }
+        }
+
         //fifth pipe
         if ((player.getX() >= 2742 && player.getX() < 2792) && player.getY() < player.getTexture().getHeight() * 2){
             player.setPosition(2741, player.getY());
@@ -134,6 +163,13 @@ public class PlayStage extends Stage {
 
         if ((player.getX() >= 2832 && player.getX() < 2882) && player.getY() < player.getTexture().getHeight() * 2){
             player.setPosition(2885, player.getY());
+        }
+
+        //fifit pipe and attack collision
+        if (producedAttack) {
+            if ((attack.getX() >= 2742 + player.getWidth() - attack.getWidth() && attack.getX() < 2792 + player.getWidth()  - attack.getWidth()) && attack.getY() < GROUND_LEVEL + 70) {
+                terrainCollide = true;
+            }
         }
 
         //player vs flyingMonster collision
@@ -274,6 +310,7 @@ public class PlayStage extends Stage {
                 producedAttack = false;
             }
         }
+
         //attack and flyingMonster1 colision
         if (producedAttack && !attack.hasAttackEnded() && !flyingMonster1.getIsDead()) {
             if (((attack.getX() <= flyingMonster1.getX() + flyingMonster1.getWidth() && attack.getX() > flyingMonster1.getX()) &&
@@ -307,6 +344,7 @@ public class PlayStage extends Stage {
                 producedAttack = false;
             }
         }
+
         //attack and flyingMonster4 collision
         if (producedAttack && !attack.hasAttackEnded() && !flyingMonster4.getIsDead()) {
             if (((attack.getX() <= flyingMonster4.getX() + flyingMonster4.getWidth() && attack.getX() > flyingMonster4.getX()) &&
@@ -318,6 +356,7 @@ public class PlayStage extends Stage {
                 producedAttack = false;
             }
         }
+
         //attack and flyingMonster5 collision
         if (producedAttack && !attack.hasAttackEnded() && !flyingMonster5.getIsDead()) {
             if (((attack.getX() <= flyingMonster5.getX() + flyingMonster5.getWidth() && attack.getX() > flyingMonster5.getX()) &&
@@ -329,6 +368,7 @@ public class PlayStage extends Stage {
                 producedAttack = false;
             }
         }
+
         //attack and mushroom collision
         if (producedAttack && !attack.hasAttackEnded() && !mushroomMonster.getIsDead()) {
             if (((attack.getX() <= mushroomMonster.getX() + mushroomMonster.getWidth() && attack.getX() > mushroomMonster.getX()) &&
@@ -472,6 +512,7 @@ public class PlayStage extends Stage {
             attack = new Attack(player.getX(), player.getY());
             producedAttack = true;
             attackColided = false;
+            terrainCollide = false;
         }
 
         previousY = player.getY();
@@ -557,7 +598,7 @@ public class PlayStage extends Stage {
         mushroomStamat.render(sb);
         mushroomPesho.render(sb);
 
-        if (producedAttack && !attack.hasAttackEnded() && !attackColided){
+        if (producedAttack && !attack.hasAttackEnded() && !attackColided && !terrainCollide){
             sb.draw(attack.getAttackTexture(), attack.getX(), attack.getY() + 15);
         }
 
