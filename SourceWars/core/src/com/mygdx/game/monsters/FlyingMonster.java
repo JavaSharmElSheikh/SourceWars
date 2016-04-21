@@ -5,11 +5,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.attack.Attack;
+import com.mygdx.game.constants.Constants;
 import com.mygdx.game.stages.PlayStage;
 
 public class FlyingMonster extends Monster {
-    private static final int MOVEMENT_SPEED = 1;
-
     private float rightestPoint;
     private float leftestPoint;
     private Vector3 position;
@@ -154,11 +153,11 @@ public class FlyingMonster extends Monster {
     }
 
     public void goRight(){
-        position.x += MOVEMENT_SPEED;
+        position.x += Constants.FLYING_MONSTER_MOVEMENT_SPEED;
     }
 
     public void goLeft(){
-        position.x -= MOVEMENT_SPEED;
+        position.x -= Constants.FLYING_MONSTER_MOVEMENT_SPEED;
     }
 
     public void render(SpriteBatch sb){

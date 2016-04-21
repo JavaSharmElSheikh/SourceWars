@@ -4,12 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.constants.Constants;
 import com.mygdx.game.stages.PlayStage;
 
 public class Character {
-    private static final int GRAVITY = -15;
-    private static final int MOVEMENT_SPEED = 5;
-
     private Vector3 position;
     private Vector3 velocity;
     private boolean isDead;
@@ -133,13 +131,13 @@ public class Character {
 
     public void handleCollision(){
         // implement collision
-        if (position.y < PlayStage.GROUND_LEVEL &&
-                !((getX() >= 760 && getX() < 890) && getY() < PlayStage.GROUND_LEVEL + 80) &&
-                !((getX() >= 1430 && getX() < 1560) && getY() < PlayStage.GROUND_LEVEL + 80) &&
-                !((getX() >= 2170 && getX() < 2300) && getY() < PlayStage.GROUND_LEVEL + 50) &&
-                !((getX() >= 2325 && getX() < 2455) && getY() < PlayStage.GROUND_LEVEL + 50) &&
-                !((getX() >= 2750 && getX() < 2880) && getY() < PlayStage.GROUND_LEVEL + 30)){
-            position.y = PlayStage.GROUND_LEVEL;
+        if (position.y < Constants.GROUND_LEVEL &&
+                !((getX() >= 760 && getX() < 890) && getY() < Constants.GROUND_LEVEL + 80) &&
+                !((getX() >= 1430 && getX() < 1560) && getY() < Constants.GROUND_LEVEL + 80) &&
+                !((getX() >= 2170 && getX() < 2300) && getY() < Constants.GROUND_LEVEL + 50) &&
+                !((getX() >= 2325 && getX() < 2455) && getY() < Constants.GROUND_LEVEL + 50) &&
+                !((getX() >= 2750 && getX() < 2880) && getY() < Constants.GROUND_LEVEL + 30)){
+            position.y = Constants.GROUND_LEVEL;
         }
 
         //first tube top collision
@@ -171,7 +169,7 @@ public class Character {
     public void update(float deltaTime) {
         if (rightJumpAnimation.size != 0){
             if (position.y > 0) {
-                velocity.add(0, GRAVITY, 0);
+                velocity.add(0, Constants.PAYER_GRAVITY, 0);
             }
 
         velocity.scl(deltaTime);
@@ -223,11 +221,11 @@ public class Character {
     }
 
     public void goRight(){
-        position.x += MOVEMENT_SPEED;
+        position.x += Constants.PLAYER_MOVEMENT_SPEED;
     }
 
     public void goLeft(){
-        position.x -= MOVEMENT_SPEED;
+        position.x -=  Constants.PLAYER_MOVEMENT_SPEED;
     }
 
     public float getX(){
@@ -258,17 +256,8 @@ public class Character {
         this.isDead = true;
     }
 
-    public void clear(){
-        rightJumpAnimation.clear();
-        rightRunAnimation.clear();
-        rightStayAnimation.clear();
-        leftRunAnimation.clear();
-        leftStayAnimation.clear();
-        leftJumpAnimation.clear();
-    }
 
     public void dispose(){
         texture.dispose();
-        clear();
     }
 }

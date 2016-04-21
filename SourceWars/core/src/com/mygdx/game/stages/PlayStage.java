@@ -5,14 +5,14 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.attack.Attack;
+import com.mygdx.game.constants.Constants;
 import com.mygdx.game.monsters.Boss;
 import com.mygdx.game.monsters.FlyingMonster;
 import com.mygdx.game.character.Character;
 import com.mygdx.game.monsters.MushroomMonster;
 
 public class PlayStage extends Stage {
-    public static final  float CAM_OFFSET = 350f;
-    public static final int GROUND_LEVEL = 60;
+   // public static final  float CAM_OFFSET = 350f;
 
     private static int counter = 0;
     private static float previousY = 0;
@@ -51,12 +51,12 @@ public class PlayStage extends Stage {
         flyingMonster4 = new FlyingMonster(4100,180);
         flyingMonster5 = new FlyingMonster(5000,140);
         boss = new Boss(6700, 40);
-        mushroomMonster = new MushroomMonster(500, GROUND_LEVEL + 1);
-        mushroomPesho = new MushroomMonster(1200 , GROUND_LEVEL + 1);
-        mushroomGoshko = new MushroomMonster(2000 , GROUND_LEVEL +1);
-        mushroomKichka = new MushroomMonster(3410 , GROUND_LEVEL +1);
-        mushroomLuna = new MushroomMonster(4300 , GROUND_LEVEL + 1);
-        mushroomStamat = new MushroomMonster(5100 , GROUND_LEVEL + 1);
+        mushroomMonster = new MushroomMonster(500, Constants.GROUND_LEVEL + 1);
+        mushroomPesho = new MushroomMonster(1200 , Constants.GROUND_LEVEL + 1);
+        mushroomGoshko = new MushroomMonster(2000 , Constants.GROUND_LEVEL +1);
+        mushroomKichka = new MushroomMonster(3410 , Constants.GROUND_LEVEL +1);
+        mushroomLuna = new MushroomMonster(4300 , Constants.GROUND_LEVEL + 1);
+        mushroomStamat = new MushroomMonster(5100 , Constants.GROUND_LEVEL + 1);
         bg = new Texture("MapSample.png");
     }
 
@@ -95,63 +95,67 @@ public class PlayStage extends Stage {
         }
 
         //first pipe
-        if ((player.getX() >= 755 && player.getX() < 805) && player.getY() < GROUND_LEVEL + 70){
+        if ((player.getX() >= 755 && player.getX() < 805) && player.getY() < Constants.GROUND_LEVEL + 70){
             player.setPosition(754, player.getY());
         }
 
-        if ((player.getX() >= 845 && player.getX() < 895) && player.getY() < GROUND_LEVEL + 70){
+        if ((player.getX() >= 845 && player.getX() < 895) && player.getY() < Constants.GROUND_LEVEL + 70){
             player.setPosition(896, player.getY());
         }
 
         //first pipe and attack collision
         if (producedAttack) {
-            if ((attack.getX() >= 755 + player.getWidth()  - attack.getWidth() && attack.getX() < 805 + player.getWidth()  - attack.getWidth()) && attack.getY() < GROUND_LEVEL + 70) {
+            if ((attack.getX() >= 755 + player.getWidth()  - attack.getWidth() &&
+                    attack.getX() < 805 + player.getWidth()  - attack.getWidth()) && attack.getY() < Constants.GROUND_LEVEL + 70) {
                 terrainCollide = true;
             }
         }
 
         //second pipe
-        if ((player.getX() >= 1425 && player.getX() < 1475) && player.getY() < GROUND_LEVEL + 70){
+        if ((player.getX() >= 1425 && player.getX() < 1475) && player.getY() < Constants.GROUND_LEVEL + 70){
             player.setPosition(1424, player.getY());
         }
-        if ((player.getX() >= 1515 && player.getX() < 1565) && player.getY() < GROUND_LEVEL + 70){
+        if ((player.getX() >= 1515 && player.getX() < 1565) && player.getY() < Constants.GROUND_LEVEL + 70){
             player.setPosition(1566, player.getY());
         }
 
         //second pipe and attack collision
         if (producedAttack) {
-            if ((attack.getX() >= 1425 + player.getWidth() - attack.getWidth() && attack.getX() < 1475 + player.getWidth()  - attack.getWidth()) && attack.getY() < GROUND_LEVEL + 70) {
+            if ((attack.getX() >= 1425 + player.getWidth() - attack.getWidth()
+                    && attack.getX() < 1475 + player.getWidth()  - attack.getWidth()) && attack.getY() < Constants.GROUND_LEVEL + 70) {
                 terrainCollide = true;
             }
         }
 
         //third pipe
-        if ((player.getX() >= 2165 && player.getX() < 2215) && player.getY() < GROUND_LEVEL + 30){
+        if ((player.getX() >= 2165 && player.getX() < 2215) && player.getY() < Constants.GROUND_LEVEL + 30){
             player.setPosition(2164, player.getY());
         }
-        if ((player.getX() >= 2255 && player.getX() < 2305) && player.getY() < GROUND_LEVEL + 30){
+        if ((player.getX() >= 2255 && player.getX() < 2305) && player.getY() < Constants.GROUND_LEVEL + 30){
             player.setPosition(2306, player.getY());
         }
 
         //third pipe and attack collision
         if (producedAttack) {
-            if ((attack.getX() >= 2165 + player.getWidth() - attack.getWidth() && attack.getX() < 2215 + player.getWidth()  - attack.getWidth()) && attack.getY() < GROUND_LEVEL + 70) {
+            if ((attack.getX() >= 2165 + player.getWidth() - attack.getWidth()
+                    && attack.getX() < 2215 + player.getWidth()  - attack.getWidth()) && attack.getY() < Constants.GROUND_LEVEL + 70) {
                 terrainCollide = true;
             }
         }
 
         //fourth pipe
-        if ((player.getX() >= 2320 && player.getX() < 2370) && player.getY() < GROUND_LEVEL + 30){
+        if ((player.getX() >= 2320 && player.getX() < 2370) && player.getY() < Constants.GROUND_LEVEL + 30){
             player.setPosition(2319, player.getY());
         }
 
-        if ((player.getX() >= 2410 && player.getX() < 2460) && player.getY() < GROUND_LEVEL + 30){
+        if ((player.getX() >= 2410 && player.getX() < 2460) && player.getY() < Constants.GROUND_LEVEL + 30){
             player.setPosition(2461, player.getY());
         }
 
         //fourth pipe and attack collision
         if (producedAttack) {
-            if ((attack.getX() >= 2320 + player.getWidth() - attack.getWidth() && attack.getX() < 2370 + player.getWidth()  - attack.getWidth()) && attack.getY() < GROUND_LEVEL + 70) {
+            if ((attack.getX() >= 2320 + player.getWidth() - attack.getWidth()
+                    && attack.getX() < 2370 + player.getWidth()  - attack.getWidth()) && attack.getY() < Constants.GROUND_LEVEL + 70) {
                 terrainCollide = true;
             }
         }
@@ -167,7 +171,8 @@ public class PlayStage extends Stage {
 
         //fifit pipe and attack collision
         if (producedAttack) {
-            if ((attack.getX() >= 2742 + player.getWidth() - attack.getWidth() && attack.getX() < 2792 + player.getWidth()  - attack.getWidth()) && attack.getY() < GROUND_LEVEL + 70) {
+            if ((attack.getX() >= 2742 + player.getWidth() - attack.getWidth()
+                    && attack.getX() < 2792 + player.getWidth()  - attack.getWidth()) && attack.getY() < Constants.GROUND_LEVEL + 70) {
                 terrainCollide = true;
             }
         }
@@ -455,7 +460,7 @@ public class PlayStage extends Stage {
 
 
         //Leia collision
-        if ((player.getX() >= 7300 && player.getX() < 7350) && player.getY() < GROUND_LEVEL + 70){
+        if ((player.getX() >= 7300 && player.getX() < 7350) && player.getY() < Constants.GROUND_LEVEL + 70){
             player.setPosition(7299, player.getY());
             gameWon();
         }
@@ -471,7 +476,7 @@ public class PlayStage extends Stage {
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP) ||
                 Gdx.input.isKeyPressed(Input.Keys.W)) {
-             if (player.getY() == GROUND_LEVEL ||
+             if (player.getY() == Constants.GROUND_LEVEL ||
                     player.getY() == 160 ||
                     player.getY() == 190 ||
                     player.getY() == 125){
@@ -527,8 +532,6 @@ public class PlayStage extends Stage {
         if (producedAttack && !attackColided && attack.hasAttackEnded()){
             producedAttack = false;
         }
-
-
 
         counter++;
         previousX = player.getX();

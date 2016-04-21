@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Game;
+import com.mygdx.game.constants.Constants;
 
 public class MenuStage extends Stage {
     private Texture startButton;
@@ -37,11 +38,11 @@ public class MenuStage extends Stage {
     public void render(SpriteBatch sb) {
         sb.begin();
         if (camOffset == 0) {
-            sb.draw(startButton, Game.WIDTH / 2 - startButton.getWidth() / 2, Game.HEIGHT / 2 - startButton.getHeight() / 2);
+            sb.draw(startButton, Constants.WIDTH / 2 - startButton.getWidth() / 2, Constants.HEIGHT / 2 - startButton.getHeight() / 2);
         }
 
         if (camOffset != 0){
-            sb.draw(startButton, camOffset, Game.HEIGHT / 2 - startButton.getHeight() / 2);
+            sb.draw(startButton, camOffset, Constants.HEIGHT / 2 - startButton.getHeight() / 2);
         }
 
         sb.end();

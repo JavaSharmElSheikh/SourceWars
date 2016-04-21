@@ -5,10 +5,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.attack.Attack;
+import com.mygdx.game.constants.Constants;
 
 public class Boss extends Monster {
-    private static final int BOSS_MOVEMENT_SPEED = 3;
-
     private Texture texture;
     private Vector3 position;
     private Vector3 velocity;
@@ -131,11 +130,11 @@ public class Boss extends Monster {
     }
 
     public void goRight(){
-        position.x += BOSS_MOVEMENT_SPEED;
+        position.x += Constants.BOSS_MOVEMENT_SPEED;
     }
 
     public void goLeft(){
-        position.x -= BOSS_MOVEMENT_SPEED;
+        position.x -= Constants.BOSS_MOVEMENT_SPEED;
     }
 
     @Override
