@@ -23,12 +23,12 @@ public class PlayStage extends Stage {
     private Texture bg;
     private boolean isPlayerDead;
     private Character player;
-    private FlyingMonster flyingMonster;
-    private FlyingMonster flyingMonster1;
-    private FlyingMonster flyingMonster2;
-    private FlyingMonster flyingMonster3;
-    private FlyingMonster flyingMonster4;
-    private FlyingMonster flyingMonster5;
+    private FlyingMonster firstFlyingMonster;
+    private FlyingMonster secondFlyingMonster;
+    private FlyingMonster thirdFlyingMonster;
+    private FlyingMonster fourhtFlyingMonster;
+    private FlyingMonster fifthFlyingMonster;
+    private FlyingMonster sixthFlyingMonster;
     private MushroomMonster mushroomMonster;
     private MushroomMonster mushroomPesho;
     private MushroomMonster mushroomGoshko;
@@ -44,12 +44,12 @@ public class PlayStage extends Stage {
     public PlayStage(GameStageManager gsm){
         super(gsm);
         player = new Character(350,150);
-        flyingMonster = new FlyingMonster(800, 180);
-        flyingMonster1 = new FlyingMonster(1500,180);
-        flyingMonster2 = new FlyingMonster(2200,130);
-        flyingMonster3 = new FlyingMonster(2800,200);
-        flyingMonster4 = new FlyingMonster(4100,180);
-        flyingMonster5 = new FlyingMonster(5000,140);
+        firstFlyingMonster = new FlyingMonster(800, 180);
+        secondFlyingMonster = new FlyingMonster(1500,180);
+        thirdFlyingMonster = new FlyingMonster(2200,130);
+        fourhtFlyingMonster = new FlyingMonster(2800,200);
+        fifthFlyingMonster = new FlyingMonster(4100,180);
+        sixthFlyingMonster = new FlyingMonster(5000,140);
         boss = new Boss(6700, 40);
         mushroomMonster = new MushroomMonster(500, Constants.GROUND_LEVEL + 1);
         mushroomPesho = new MushroomMonster(1200 , Constants.GROUND_LEVEL + 1);
@@ -177,58 +177,58 @@ public class PlayStage extends Stage {
             }
         }
 
-        //player vs flyingMonster collision
-        if (!flyingMonster.getIsDead()) {
-            if (((player.getX() <= flyingMonster.getX() + flyingMonster.getWidth() && player.getX() > flyingMonster.getX()) &&
-                    (player.getY() <= flyingMonster.getY() + flyingMonster.getHeight() && player.getY() > flyingMonster.getY())) ||
-                    (flyingMonster.getX() <= player.getX() + player.getWidth() && flyingMonster.getX() > player.getX()) &&
-                            flyingMonster.getY() <= player.getY() + player.getHeight() && flyingMonster.getY() > player.getY()) {
+        //player vs firstFlyingMonster collision
+        if (!firstFlyingMonster.getIsDead()) {
+            if (((player.getX() <= firstFlyingMonster.getX() + firstFlyingMonster.getWidth() && player.getX() > firstFlyingMonster.getX()) &&
+                    (player.getY() <= firstFlyingMonster.getY() + firstFlyingMonster.getHeight() && player.getY() > firstFlyingMonster.getY())) ||
+                    (firstFlyingMonster.getX() <= player.getX() + player.getWidth() && firstFlyingMonster.getX() > player.getX()) &&
+                            firstFlyingMonster.getY() <= player.getY() + player.getHeight() && firstFlyingMonster.getY() > player.getY()) {
                 isPlayerDead = true;
             }
         }
 
-        //player vs flyingMonster1 collision
-        if (!flyingMonster1.getIsDead()) {
-            if (((player.getX() <= flyingMonster1.getX() + flyingMonster1.getWidth() && player.getX() > flyingMonster1.getX()) &&
-                    (player.getY() <= flyingMonster1.getY() + flyingMonster1.getHeight() && player.getY() > flyingMonster1.getY())) ||
-                    (flyingMonster1.getX() <= player.getX() + player.getWidth() && flyingMonster1.getX() > player.getX()) &&
-                            flyingMonster1.getY() <= player.getY() + player.getHeight() && flyingMonster1.getY() > player.getY()) {
+        //player vs secondFlyingMonster collision
+        if (!secondFlyingMonster.getIsDead()) {
+            if (((player.getX() <= secondFlyingMonster.getX() + secondFlyingMonster.getWidth() && player.getX() > secondFlyingMonster.getX()) &&
+                    (player.getY() <= secondFlyingMonster.getY() + secondFlyingMonster.getHeight() && player.getY() > secondFlyingMonster.getY())) ||
+                    (secondFlyingMonster.getX() <= player.getX() + player.getWidth() && secondFlyingMonster.getX() > player.getX()) &&
+                            secondFlyingMonster.getY() <= player.getY() + player.getHeight() && secondFlyingMonster.getY() > player.getY()) {
                 isPlayerDead = true;
             }
         }
-        //player vs flyingMonster2 collision
-        if (!flyingMonster2.getIsDead()) {
-            if (((player.getX() <= flyingMonster2.getX() + flyingMonster2.getWidth() && player.getX() > flyingMonster2.getX()) &&
-                    (player.getY() <= flyingMonster2.getY() + flyingMonster2.getHeight() && player.getY() > flyingMonster2.getY())) ||
-                    (flyingMonster2.getX() <= player.getX() + player.getWidth() && flyingMonster2.getX() > player.getX()) &&
-                            flyingMonster2.getY() <= player.getY() + player.getHeight() && flyingMonster2.getY() > player.getY()) {
+        //player vs thirdFlyingMonster collision
+        if (!thirdFlyingMonster.getIsDead()) {
+            if (((player.getX() <= thirdFlyingMonster.getX() + thirdFlyingMonster.getWidth() && player.getX() > thirdFlyingMonster.getX()) &&
+                    (player.getY() <= thirdFlyingMonster.getY() + thirdFlyingMonster.getHeight() && player.getY() > thirdFlyingMonster.getY())) ||
+                    (thirdFlyingMonster.getX() <= player.getX() + player.getWidth() && thirdFlyingMonster.getX() > player.getX()) &&
+                            thirdFlyingMonster.getY() <= player.getY() + player.getHeight() && thirdFlyingMonster.getY() > player.getY()) {
                 isPlayerDead = true;
             }
         }
-        //player vs flyingMonster3 collision
-        if (!flyingMonster3.getIsDead()) {
-            if (((player.getX() <= flyingMonster3.getX() + flyingMonster3.getWidth() && player.getX() > flyingMonster3.getX()) &&
-                    (player.getY() <= flyingMonster3.getY() + flyingMonster3.getHeight() && player.getY() > flyingMonster3.getY())) ||
-                    (flyingMonster3.getX() <= player.getX() + player.getWidth() && flyingMonster3.getX() > player.getX()) &&
-                            flyingMonster3.getY() <= player.getY() + player.getHeight() && flyingMonster3.getY() > player.getY()) {
+        //player vs fourhtFlyingMonster collision
+        if (!fourhtFlyingMonster.getIsDead()) {
+            if (((player.getX() <= fourhtFlyingMonster.getX() + fourhtFlyingMonster.getWidth() && player.getX() > fourhtFlyingMonster.getX()) &&
+                    (player.getY() <= fourhtFlyingMonster.getY() + fourhtFlyingMonster.getHeight() && player.getY() > fourhtFlyingMonster.getY())) ||
+                    (fourhtFlyingMonster.getX() <= player.getX() + player.getWidth() && fourhtFlyingMonster.getX() > player.getX()) &&
+                            fourhtFlyingMonster.getY() <= player.getY() + player.getHeight() && fourhtFlyingMonster.getY() > player.getY()) {
                 isPlayerDead = true;
             }
         }
-        //player vs flyingMonster4 collision
-        if (!flyingMonster4.getIsDead()) {
-            if (((player.getX() <= flyingMonster4.getX() + flyingMonster4.getWidth() && player.getX() > flyingMonster4.getX()) &&
-                    (player.getY() <= flyingMonster4.getY() + flyingMonster4.getHeight() && player.getY() > flyingMonster4.getY())) ||
-                    (flyingMonster4.getX() <= player.getX() + player.getWidth() && flyingMonster4.getX() > player.getX()) &&
-                            flyingMonster4.getY() <= player.getY() + player.getHeight() && flyingMonster4.getY() > player.getY()) {
+        //player vs fifthFlyingMonster collision
+        if (!fifthFlyingMonster.getIsDead()) {
+            if (((player.getX() <= fifthFlyingMonster.getX() + fifthFlyingMonster.getWidth() && player.getX() > fifthFlyingMonster.getX()) &&
+                    (player.getY() <= fifthFlyingMonster.getY() + fifthFlyingMonster.getHeight() && player.getY() > fifthFlyingMonster.getY())) ||
+                    (fifthFlyingMonster.getX() <= player.getX() + player.getWidth() && fifthFlyingMonster.getX() > player.getX()) &&
+                            fifthFlyingMonster.getY() <= player.getY() + player.getHeight() && fifthFlyingMonster.getY() > player.getY()) {
                 isPlayerDead = true;
             }
         }
-        //player vs flyingMonster5 collision
-        if (!flyingMonster5.getIsDead()) {
-            if (((player.getX() <= flyingMonster5.getX() + flyingMonster5.getWidth() && player.getX() > flyingMonster5.getX()) &&
-                    (player.getY() <= flyingMonster5.getY() + flyingMonster5.getHeight() && player.getY() > flyingMonster5.getY())) ||
-                    (flyingMonster5.getX() <= player.getX() + player.getWidth() && flyingMonster5.getX() > player.getX()) &&
-                            flyingMonster5.getY() <= player.getY() + player.getHeight() && flyingMonster5.getY() > player.getY()) {
+        //player vs sixthFlyingMonster collision
+        if (!sixthFlyingMonster.getIsDead()) {
+            if (((player.getX() <= sixthFlyingMonster.getX() + sixthFlyingMonster.getWidth() && player.getX() > sixthFlyingMonster.getX()) &&
+                    (player.getY() <= sixthFlyingMonster.getY() + sixthFlyingMonster.getHeight() && player.getY() > sixthFlyingMonster.getY())) ||
+                    (sixthFlyingMonster.getX() <= player.getX() + player.getWidth() && sixthFlyingMonster.getX() > player.getX()) &&
+                            sixthFlyingMonster.getY() <= player.getY() + player.getHeight() && sixthFlyingMonster.getY() > player.getY()) {
                 isPlayerDead = true;
             }
         }
@@ -303,72 +303,72 @@ public class PlayStage extends Stage {
             }
         }
 
-        //attack and flyingMonster collision
+        //attack and firstFlyingMonster collision
         //test out - added 1 statement - seems to be working
-        if (producedAttack && !attack.hasAttackEnded() && !flyingMonster.getIsDead()) {
-            if (((attack.getX() <= flyingMonster.getX() + flyingMonster.getWidth() && attack.getX() > flyingMonster.getX()) &&
-                    (attack.getY() <= flyingMonster.getY() + flyingMonster.getHeight() && attack.getY() > flyingMonster.getY())) ||
-                    (flyingMonster.getX() <= attack.getX() + attack.getWidth() && flyingMonster.getX() > attack.getX()) &&
-                    flyingMonster.getY() <= attack.getY() + attack.getHeight() && flyingMonster.getY() > attack.getY()) {
-                flyingMonster.respondToAttack(attack);
+        if (producedAttack && !attack.hasAttackEnded() && !firstFlyingMonster.getIsDead()) {
+            if (((attack.getX() <= firstFlyingMonster.getX() + firstFlyingMonster.getWidth() && attack.getX() > firstFlyingMonster.getX()) &&
+                    (attack.getY() <= firstFlyingMonster.getY() + firstFlyingMonster.getHeight() && attack.getY() > firstFlyingMonster.getY())) ||
+                    (firstFlyingMonster.getX() <= attack.getX() + attack.getWidth() && firstFlyingMonster.getX() > attack.getX()) &&
+                    firstFlyingMonster.getY() <= attack.getY() + attack.getHeight() && firstFlyingMonster.getY() > attack.getY()) {
+                firstFlyingMonster.respondToAttack(attack);
                 attackColided = true;
                 producedAttack = false;
             }
         }
 
-        //attack and flyingMonster1 colision
-        if (producedAttack && !attack.hasAttackEnded() && !flyingMonster1.getIsDead()) {
-            if (((attack.getX() <= flyingMonster1.getX() + flyingMonster1.getWidth() && attack.getX() > flyingMonster1.getX()) &&
-                    (attack.getY() <= flyingMonster1.getY() + flyingMonster1.getHeight() && attack.getY() > flyingMonster1.getY())) ||
-                    (flyingMonster1.getX() <= attack.getX() + attack.getWidth() && flyingMonster1.getX() > attack.getX()) &&
-                            flyingMonster1.getY() <= attack.getY() + attack.getHeight() && flyingMonster1.getY() > attack.getY()) {
-                flyingMonster1.respondToAttack(attack);
+        //attack and secondFlyingMonster colision
+        if (producedAttack && !attack.hasAttackEnded() && !secondFlyingMonster.getIsDead()) {
+            if (((attack.getX() <= secondFlyingMonster.getX() + secondFlyingMonster.getWidth() && attack.getX() > secondFlyingMonster.getX()) &&
+                    (attack.getY() <= secondFlyingMonster.getY() + secondFlyingMonster.getHeight() && attack.getY() > secondFlyingMonster.getY())) ||
+                    (secondFlyingMonster.getX() <= attack.getX() + attack.getWidth() && secondFlyingMonster.getX() > attack.getX()) &&
+                            secondFlyingMonster.getY() <= attack.getY() + attack.getHeight() && secondFlyingMonster.getY() > attack.getY()) {
+                secondFlyingMonster.respondToAttack(attack);
                 attackColided = true;
                 producedAttack = false;
             }
         }
-        //attack and flyingMonster2 collision
-        if (producedAttack && !attack.hasAttackEnded() && !flyingMonster2.getIsDead()) {
-            if (((attack.getX() <= flyingMonster2.getX() + flyingMonster2.getWidth() && attack.getX() > flyingMonster2.getX()) &&
-                    (attack.getY() <= flyingMonster2.getY() + flyingMonster2.getHeight() && attack.getY() > flyingMonster2.getY())) ||
-                    (flyingMonster2.getX() <= attack.getX() + attack.getWidth() && flyingMonster2.getX() > attack.getX()) &&
-                            flyingMonster2.getY() <= attack.getY() + attack.getHeight() && flyingMonster2.getY() > attack.getY()) {
-                flyingMonster2.respondToAttack(attack);
+        //attack and thirdFlyingMonster collision
+        if (producedAttack && !attack.hasAttackEnded() && !thirdFlyingMonster.getIsDead()) {
+            if (((attack.getX() <= thirdFlyingMonster.getX() + thirdFlyingMonster.getWidth() && attack.getX() > thirdFlyingMonster.getX()) &&
+                    (attack.getY() <= thirdFlyingMonster.getY() + thirdFlyingMonster.getHeight() && attack.getY() > thirdFlyingMonster.getY())) ||
+                    (thirdFlyingMonster.getX() <= attack.getX() + attack.getWidth() && thirdFlyingMonster.getX() > attack.getX()) &&
+                            thirdFlyingMonster.getY() <= attack.getY() + attack.getHeight() && thirdFlyingMonster.getY() > attack.getY()) {
+                thirdFlyingMonster.respondToAttack(attack);
                 attackColided = true;
                 producedAttack = false;
             }
         }
-        //attack and flyingMonster3 collision
-        if (producedAttack && !attack.hasAttackEnded() && !flyingMonster3.getIsDead()) {
-            if (((attack.getX() <= flyingMonster3.getX() + flyingMonster3.getWidth() && attack.getX() > flyingMonster3.getX()) &&
-                    (attack.getY() <= flyingMonster3.getY() + flyingMonster3.getHeight() && attack.getY() > flyingMonster3.getY())) ||
-                    (flyingMonster3.getX() <= attack.getX() + attack.getWidth() && flyingMonster3.getX() > attack.getX()) &&
-                            flyingMonster3.getY() <= attack.getY() + attack.getHeight() && flyingMonster3.getY() > attack.getY()) {
-                flyingMonster3.respondToAttack(attack);
-                attackColided = true;
-                producedAttack = false;
-            }
-        }
-
-        //attack and flyingMonster4 collision
-        if (producedAttack && !attack.hasAttackEnded() && !flyingMonster4.getIsDead()) {
-            if (((attack.getX() <= flyingMonster4.getX() + flyingMonster4.getWidth() && attack.getX() > flyingMonster4.getX()) &&
-                    (attack.getY() <= flyingMonster4.getY() + flyingMonster4.getHeight() && attack.getY() > flyingMonster4.getY())) ||
-                    (flyingMonster4.getX() <= attack.getX() + attack.getWidth() && flyingMonster4.getX() > attack.getX()) &&
-                            flyingMonster4.getY() <= attack.getY() + attack.getHeight() && flyingMonster4.getY() > attack.getY()) {
-                flyingMonster4.respondToAttack(attack);
+        //attack and fourhtFlyingMonster collision
+        if (producedAttack && !attack.hasAttackEnded() && !fourhtFlyingMonster.getIsDead()) {
+            if (((attack.getX() <= fourhtFlyingMonster.getX() + fourhtFlyingMonster.getWidth() && attack.getX() > fourhtFlyingMonster.getX()) &&
+                    (attack.getY() <= fourhtFlyingMonster.getY() + fourhtFlyingMonster.getHeight() && attack.getY() > fourhtFlyingMonster.getY())) ||
+                    (fourhtFlyingMonster.getX() <= attack.getX() + attack.getWidth() && fourhtFlyingMonster.getX() > attack.getX()) &&
+                            fourhtFlyingMonster.getY() <= attack.getY() + attack.getHeight() && fourhtFlyingMonster.getY() > attack.getY()) {
+                fourhtFlyingMonster.respondToAttack(attack);
                 attackColided = true;
                 producedAttack = false;
             }
         }
 
-        //attack and flyingMonster5 collision
-        if (producedAttack && !attack.hasAttackEnded() && !flyingMonster5.getIsDead()) {
-            if (((attack.getX() <= flyingMonster5.getX() + flyingMonster5.getWidth() && attack.getX() > flyingMonster5.getX()) &&
-                    (attack.getY() <= flyingMonster5.getY() + flyingMonster5.getHeight() && attack.getY() > flyingMonster5.getY())) ||
-                    (flyingMonster5.getX() <= attack.getX() + attack.getWidth() && flyingMonster5.getX() > attack.getX()) &&
-                            flyingMonster5.getY() <= attack.getY() + attack.getHeight() && flyingMonster5.getY() > attack.getY()) {
-                flyingMonster5.respondToAttack(attack);
+        //attack and fifthFlyingMonster collision
+        if (producedAttack && !attack.hasAttackEnded() && !fifthFlyingMonster.getIsDead()) {
+            if (((attack.getX() <= fifthFlyingMonster.getX() + fifthFlyingMonster.getWidth() && attack.getX() > fifthFlyingMonster.getX()) &&
+                    (attack.getY() <= fifthFlyingMonster.getY() + fifthFlyingMonster.getHeight() && attack.getY() > fifthFlyingMonster.getY())) ||
+                    (fifthFlyingMonster.getX() <= attack.getX() + attack.getWidth() && fifthFlyingMonster.getX() > attack.getX()) &&
+                            fifthFlyingMonster.getY() <= attack.getY() + attack.getHeight() && fifthFlyingMonster.getY() > attack.getY()) {
+                fifthFlyingMonster.respondToAttack(attack);
+                attackColided = true;
+                producedAttack = false;
+            }
+        }
+
+        //attack and sixthFlyingMonster collision
+        if (producedAttack && !attack.hasAttackEnded() && !sixthFlyingMonster.getIsDead()) {
+            if (((attack.getX() <= sixthFlyingMonster.getX() + sixthFlyingMonster.getWidth() && attack.getX() > sixthFlyingMonster.getX()) &&
+                    (attack.getY() <= sixthFlyingMonster.getY() + sixthFlyingMonster.getHeight() && attack.getY() > sixthFlyingMonster.getY())) ||
+                    (sixthFlyingMonster.getX() <= attack.getX() + attack.getWidth() && sixthFlyingMonster.getX() > attack.getX()) &&
+                            sixthFlyingMonster.getY() <= attack.getY() + attack.getHeight() && sixthFlyingMonster.getY() > attack.getY()) {
+                sixthFlyingMonster.respondToAttack(attack);
                 attackColided = true;
                 producedAttack = false;
             }
@@ -549,12 +549,12 @@ public class PlayStage extends Stage {
 
         if (!isPlayerDead) {
             player.update(deltaTime);
-            flyingMonster.update(deltaTime);
-            flyingMonster1.update(deltaTime);
-            flyingMonster2.update(deltaTime);
-            flyingMonster3.update(deltaTime);
-            flyingMonster4.update(deltaTime);
-            flyingMonster5.update(deltaTime);
+            firstFlyingMonster.update(deltaTime);
+            secondFlyingMonster.update(deltaTime);
+            thirdFlyingMonster.update(deltaTime);
+            fourhtFlyingMonster.update(deltaTime);
+            fifthFlyingMonster.update(deltaTime);
+            sixthFlyingMonster.update(deltaTime);
             mushroomMonster.update(deltaTime);
             mushroomPesho.update(deltaTime);
             mushroomGoshko.update(deltaTime);
@@ -572,11 +572,11 @@ public class PlayStage extends Stage {
         cam.update();
     }
 
-    public void gameOver(){
+    private void gameOver(){
         gsm.set(new GameOverStage(gsm, getCamOffset()));
     }
 
-    public void gameWon(){
+    private void gameWon(){
         gsm.set(new WinStage(gsm, getCamOffset() - 100));
     }
 
@@ -587,12 +587,12 @@ public class PlayStage extends Stage {
         sb.draw(bg, 0, 0);
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y);
 
-        flyingMonster.render(sb);
-        flyingMonster1.render(sb);
-        flyingMonster2.render(sb);
-        flyingMonster3.render(sb);
-        flyingMonster4.render(sb);
-        flyingMonster5.render(sb);
+        firstFlyingMonster.render(sb);
+        secondFlyingMonster.render(sb);
+        thirdFlyingMonster.render(sb);
+        fourhtFlyingMonster.render(sb);
+        fifthFlyingMonster.render(sb);
+        sixthFlyingMonster.render(sb);
 
         mushroomMonster.render(sb);
         mushroomGoshko.render(sb);
@@ -611,12 +611,12 @@ public class PlayStage extends Stage {
 
     @Override
     public void dispose() {
-        flyingMonster.dispose();
-        flyingMonster1.dispose();
-        flyingMonster2.dispose();
-        flyingMonster3.dispose();
-        flyingMonster4.dispose();
-        flyingMonster5.dispose();
+        firstFlyingMonster.dispose();
+        secondFlyingMonster.dispose();
+        thirdFlyingMonster.dispose();
+        fourhtFlyingMonster.dispose();
+        fifthFlyingMonster.dispose();
+        sixthFlyingMonster.dispose();
         mushroomMonster.dispose();
         mushroomPesho.dispose();
         mushroomGoshko.dispose();
